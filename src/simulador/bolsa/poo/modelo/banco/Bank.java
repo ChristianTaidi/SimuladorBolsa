@@ -91,23 +91,29 @@ public class Bank implements Entidad,Serializable {
     }
     public void realizarSolicitud(int cod,String dni, float dinero,int nAcc, String empresa) throws IllegalArgumentException,NoSuchEnterpriseException,NotEnoughActionsException,InvalidCodeException,InexistentClientException,NotEnoughMoneyException{
         if ((dni!= null)&&(empresa != null)) {
-            if (clientes.containsKey(dni)) {
+
                 switch (cod) {
                     case 0:
-                        if (clientes.get(dni).getSaldo() > dinero) {
-                            agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), dinero, empresa));
+                        if (clientes.containsKey(dni)) {
+                            if (clientes.get(dni).getSaldo() > dinero) {
+                                agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getDni(), dinero, empresa));
+                            } else {
+                                throw new NotEnoughMoneyException("El cliente no tiene saldo para invertir esta cantidad: " + dinero);
+                            }
                         } else {
-                            throw new NotEnoughMoneyException("El cliente no tiene saldo para invertir esta cantidad: " + dinero);
+                            throw new InexistentClientException("El Cliente no existe");
                         }
                         break;
                     case 1:
-
-                        if (clientes.get(dni).tieneAcciones(empresa) > nAcc) {
-                            agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
-                        } else {
-                            throw new NotEnoughActionsException("El cliente tiene menos acciones de las solicitadas para la venta:" + clientes.get(dni).tieneAcciones(empresa));
-                        }
-
+                        if (clientes.containsKey(dni)) {
+                            if (clientes.get(dni).tieneAcciones(empresa) > nAcc) {
+                                agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
+                            } else {
+                                throw new NotEnoughActionsException("El cliente tiene menos acciones de las solicitadas para la venta:" + clientes.get(dni).tieneAcciones(empresa));
+                            }
+                        }else{
+                            throw new InexistentClientException("El Cliente no existe");
+                         }
                         break;
                     case 2:
                         agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * 3) + cod));
@@ -118,9 +124,7 @@ public class Bank implements Entidad,Serializable {
                 }
 
 
-            } else {
-                throw new InexistentClientException("El Cliente no existe");
-            }
+
         }else{
             throw new IllegalArgumentException("El dni no puede ser nulo, y la empresa tampoco") ;
         }

@@ -7,8 +7,6 @@ public class MensajeActualizacion extends Mensaje  {
     }
 
     public String codificar(){
-        int codigoMensaje = 3;
-
-        return String.valueOf(codigoMensaje);
+        return String.valueOf(this.getCodigoId());
     }
 }

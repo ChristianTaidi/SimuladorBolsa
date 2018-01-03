@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 public class BolsaValores implements Entidad,Serializable {
     private TreeMap <String, Empresa> empresas;
@@ -23,7 +24,7 @@ public class BolsaValores implements Entidad,Serializable {
 
 
             ArrayList<String> resultado = new ArrayList();
-            String[] partes = mensaje.split("|");
+            String[] partes = mensaje.split(Pattern.quote("|"));
             int codigoId = Integer.parseInt(partes[0]);
 
             if ((codigoId % 3) == 0) {
@@ -31,15 +32,17 @@ public class BolsaValores implements Entidad,Serializable {
                 float dInversion = Float.parseFloat(partes[2]);
                 String nomEmpresa = (partes[3]);
 
-                float precioAcciones = (empresas.get(nomEmpresa).getPrecioAcciones());
+
 
                 if (empresas.containsKey(nomEmpresa)) {
 
+                    float precioAcciones = (empresas.get(nomEmpresa).getPrecioAcciones());
                     boolean acceso = (dInversion > precioAcciones);
                     int numAcciones = (int) (precioAcciones / dInversion);
                     float dRestante = dInversion - (numAcciones * precioAcciones);
                     resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante).codificar());
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() + numAcciones);
+                    this.actualizarValores(numAcciones,nomEmpresa);
                     return resultado;
 
                 } else
@@ -58,7 +61,9 @@ public class BolsaValores implements Entidad,Serializable {
 
                     resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta).codificar());
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() - numAcciones);
+                    this.actualizarValores(-numAcciones,nomEmpresa);
                     return resultado;
+
                 } else
                     throw new NoSuchEnterpriseException("La empresa no existe");
             } else if ((codigoId % 3) == 2) {
@@ -103,10 +108,14 @@ public class BolsaValores implements Entidad,Serializable {
 
     }
 
-    public void actualizarValores (){
-        for (Empresa emp: empresas.values()){
-            emp.actualizarValor();
-        }
+    private void actualizarValores (int numAcc,String nomEmpresa) throws NoSuchEnterpriseException {
+            if (empresas.containsKey(nomEmpresa)) {
+                Empresa emp = this.empresas.get(nomEmpresa);
+                emp.actualizarValor(numAcc);
+            }else{
+                throw new NoSuchEnterpriseException("Fallo a la hora de actualizar el valor de la empresa,"+nomEmpresa +"no existe");
+            }
+
     }
 
 

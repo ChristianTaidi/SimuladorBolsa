@@ -10,7 +10,7 @@ public class WriteFile<T> implements IOStream {
     ObjectOutputStream objectOut;
 
 
-    public WriteFile(File fich) throws IOException{
+    public WriteFile(String fich) throws IOException{
         stream=new FileOutputStream(fich);
         objectOut = new ObjectOutputStream(stream);
 
@@ -18,10 +18,12 @@ public class WriteFile<T> implements IOStream {
 
     public void write(T ent) throws IOException{
         objectOut.writeObject(ent);
+        objectOut.flush();
+
     }
 
     @Override
-    public void cerrar(File fich) throws IOException{
+    public void cerrar() throws IOException{
        objectOut.close();
     }
 }

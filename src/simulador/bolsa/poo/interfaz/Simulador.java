@@ -15,13 +15,13 @@ public class Simulador {
     private Bank banco;
     private BolsaValores bolsa;
     private AgenteBolsa broker;
-    private File ficheroBanco = new File("simulador.bolsa.poo.modelo.banco.dat");
-    private File ficheroBolsa = new File("bolsa.dat");
+    private static final String FICHERO_BANCO = "banco.dat";
+    private static final String FICHERO_BOLSA = "bolsa.dat";
 
     public Simulador(){
         this.bolsa = new BolsaValores();
         this.broker = new AgenteBolsa("Pedro","76514859G",this.bolsa);
-        this.banco = new Bank("simulador.bolsa.poo.modelo.banco Simulador",this.broker);
+        this.banco = new Bank("Simulador",this.broker);
 
 
     }
@@ -56,20 +56,20 @@ public class Simulador {
 
     public void backupLoad(String codElem) throws InvalidBackupElementException{
 
-        File fileAux;
+
         try {
         switch (codElem) {
             case "banc":
-                    fileAux = ficheroBanco;
-                    ReadFile load = new ReadFile(fileAux);
+
+                    ReadFile load = new ReadFile(FICHERO_BANCO);
                     banco = (Bank) load.read();
-                    load.cerrar(fileAux);
+                    load.cerrar();
                 break;
             case "bolsa":
-                    fileAux = ficheroBolsa;
-                    load = new ReadFile(fileAux);
+
+                    load = new ReadFile(FICHERO_BOLSA);
                     bolsa = (BolsaValores) load.read();
-                    load.cerrar(fileAux);
+                    load.cerrar();
                 break;
             default:
                 throw new InvalidBackupElementException("No se puede hacer copia de seguridad del elemento: " + codElem);
@@ -82,23 +82,21 @@ public class Simulador {
 
     public void backupSave(String codElem) throws InvalidBackupElementException{
 
-        File fileAux;
         try {
             switch (codElem) {
                 case "banc":
 
-                    fileAux = ficheroBanco;
-
-                    WriteFile save = new WriteFile(fileAux);
+                    WriteFile save = new WriteFile(FICHERO_BANCO);
                     save.write(banco);
-                    save.cerrar(fileAux);
+                    save.cerrar();
+
 
                     break;
                 case "bolsa":
-                    fileAux = ficheroBolsa;
-                    save = new WriteFile(fileAux);;
+
+                    save = new WriteFile(FICHERO_BOLSA);;
                     save.write(bolsa);
-                    save.cerrar(fileAux);
+                    save.cerrar();
 
                     break;
                 default:
@@ -167,11 +165,23 @@ public class Simulador {
     }
 
     public void updateValores (){
-        bolsa.actualizarValores();
+        System.out.println("Los valores en bolsa estan actualizados( se actualizan automaticamente)");
     }
 
     public void solicitarActualizacion(){
-
+        try {
+            banco.realizarSolicitud(2,"",0,0,"");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
     }
 
     public void recomendacion(String dni) throws NotPremiumClientException,InexistentClientException{

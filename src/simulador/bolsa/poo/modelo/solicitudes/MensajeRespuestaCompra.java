@@ -7,7 +7,7 @@ public class MensajeRespuestaCompra extends RespuestaCompraVenta {
     }
 
     public String codificar (){
-        return "Resultado de Compra: " + this.getCodigoId() + "|" + this.getCliente() + "|" +this.getnomEmpresa()+ "|" + this.getAcceso() + "|" + getNumAcciones() + "|" + getPrecioAcciones() + "|" + getdRestante();
+        return  this.getCodigoId() + "|" + this.getCliente() + "|" +this.getnomEmpresa()+ "|" + this.getAcceso() + "|" + getNumAcciones() + "|" + getPrecioAcciones() + "|" + getdRestante();
     }
     public int ejecutar(){
         int codigoMensaje = 1;
