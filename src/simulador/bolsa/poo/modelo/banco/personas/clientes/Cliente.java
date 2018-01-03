@@ -63,7 +63,7 @@ public class Cliente extends Persona implements Serializable,Imprimible{
         }
     }
 
-    public void updanteStockPackage(String nomEmpresa,float precioAcciones ){
+    public void updateStockPackage(String nomEmpresa,float precioAcciones ){
 
             this.paquetesDeAcciones.get(nomEmpresa).actualizarValor(precioAcciones);
     }

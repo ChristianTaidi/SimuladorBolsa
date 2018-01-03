@@ -164,7 +164,7 @@ public class Bank implements Entidad,Serializable {
 
                     for (Cliente c : clientes.values()) {
                         if (c.estaEmpresa(nombEmpresa)) {
-                            c.updanteStockPackage(nombEmpresa, precioAcciones);
+                            c.updateStockPackage(nombEmpresa, precioAcciones);
                         }
                     }
                 }
