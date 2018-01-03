@@ -95,22 +95,16 @@ public class Bank implements Entidad,Serializable {
                 switch (cod) {
                     case 0:
                         if (clientes.containsKey(dni)) {
-                            if (clientes.get(dni).getSaldo() > dinero) {
+
                                 agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getDni(), dinero, empresa));
-                            } else {
-                                throw new NotEnoughMoneyException("El cliente no tiene saldo para invertir esta cantidad: " + dinero);
-                            }
                         } else {
                             throw new InexistentClientException("El Cliente no existe");
                         }
                         break;
                     case 1:
                         if (clientes.containsKey(dni)) {
-                            if (clientes.get(dni).tieneAcciones(empresa) > nAcc) {
+
                                 agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
-                            } else {
-                                throw new NotEnoughActionsException("El cliente tiene menos acciones de las solicitadas para la venta:" + clientes.get(dni).tieneAcciones(empresa));
-                            }
                         }else{
                             throw new InexistentClientException("El Cliente no existe");
                          }
@@ -130,7 +124,7 @@ public class Bank implements Entidad,Serializable {
         }
     }
 
-    public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException {
+    public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException, NotEnoughMoneyException, NotEnoughActionsException {
         ArrayList<String> mensajes = agente.ejecutarSolicitudes();
         for (String mensaje : mensajes) {
             try {
@@ -144,9 +138,12 @@ public class Bank implements Entidad,Serializable {
                     float precioAcciones= Float.parseFloat(vector[5]);
                     float saldoRestante = Float.parseFloat(vector[6]);
                     Cliente clienteActual = this.clientes.get(cliente);
-                    clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones,empresa,precioAcciones);
-                    clienteActual.actualizarSaldo(saldoRestante);
-
+                    if (clienteActual.getSaldo()>precioAcciones*numAcciones) {
+                        clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones, empresa, precioAcciones);
+                        clienteActual.actualizarSaldo(saldoRestante);
+                    }else{
+                        throw new NotEnoughMoneyException("El cliente no tiene dinero para hacer la compra de inversiones de la empresa"+empresa);
+                    }
                 } else if (codigo % 3 == 1) {
                     String cliente = vector[1];
                     String empresa = vector[2];
@@ -155,15 +152,19 @@ public class Bank implements Entidad,Serializable {
                     float precioAcciones = Float.parseFloat(vector[5]);
                     float dineroRestante = Float.parseFloat(vector[6]);
                     Cliente clienteActual = this.clientes.get(cliente);
-                    clienteActual.addStockPackage(clienteActual.tieneAcciones(empresa)-numAcciones,empresa,precioAcciones);
-                    clienteActual.actualizarSaldo(dineroRestante+clienteActual.getSaldo());
+                    if(clienteActual.tieneAcciones(empresa)>= numAcciones) {
+                        clienteActual.addStockPackage(clienteActual.tieneAcciones(empresa) - numAcciones, empresa, precioAcciones);
+                        clienteActual.actualizarSaldo(dineroRestante + clienteActual.getSaldo());
+                    }else{
+                        throw new NotEnoughActionsException("El cliente no tiene acciones suficientes de la empresa: "+empresa+", tiene: "+clienteActual.tieneAcciones(empresa)+" acciones");
+                    }
                 } else if (codigo % 3 == 2) {
                     String nombEmpresa = vector[1];
                     float precioAcciones = Float.parseFloat(vector[2]);//preguntar como recorrer esto//
 
                     for (Cliente c : clientes.values()) {
                         if (c.estaEmpresa(nombEmpresa)) {
-                            c.updanteStockPackage(nombEmpresa, precioAcciones);
+                            c.updateStockPackage(nombEmpresa, precioAcciones);
                         }
                     }
                 }
