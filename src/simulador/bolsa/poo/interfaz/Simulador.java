@@ -197,10 +197,14 @@ public class Simulador {
     public void ejecutarOperaciones(){
 
         try {
-            broker.ejecutarSolicitudes();
+            banco.ejecutarSolicitudes();
         } catch (InvalidCodeException e) {
             e.printStackTrace();
         } catch (NoSuchEnterpriseException e) {
+            System.out.println(e.getMessage());
+        } catch (NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        } catch (NotEnoughActionsException e) {
             System.out.println(e.getMessage());
         }
     }

@@ -93,6 +93,10 @@ public class TestBanco {
             e.printStackTrace();
         } catch (NoSuchEnterpriseException e) {
             e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
         }
         BANCO.imprimirEstado();
     }

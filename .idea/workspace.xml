@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestBanco.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TestBanco.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tests/src/test/TestBanco.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+            <state relative-caret-position="1649">
+              <caret line="100" column="31" lean-forward="true" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,24 +50,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bank.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/Bank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
-              <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
+            <state relative-caret-position="547">
+              <caret line="150" column="66" lean-forward="true" selection-start-line="150" selection-start-column="66" selection-end-line="150" selection-end-column="66" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestIO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Tests/src/test/TestIO.java">
+      <file leaf-file-name="Simulador.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/interfaz/Simulador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="44" lean-forward="true" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="1479">
+              <caret line="206" column="47" lean-forward="true" selection-start-line="206" selection-start-column="47" selection-end-line="206" selection-end-column="47" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +73,8 @@
       <file leaf-file-name="BolsaValores.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/bolsa/BolsaValores.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="45" column="67" lean-forward="true" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
+            <state relative-caret-position="578">
+              <caret line="48" column="22" lean-forward="true" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#borrarEmpresa#0;class#BolsaValores#0" expanded="false" />
@@ -100,8 +98,8 @@
       <file leaf-file-name="AgenteBolsa.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/personas/AgenteBolsa.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="38" column="47" lean-forward="true" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+            <state relative-caret-position="697">
+              <caret line="50" column="1" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="50" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -148,12 +146,12 @@
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/bolsa/Empresa.java" />
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/solicitudes/MensajeRespuestaCompra.java" />
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/io/ReadFile.java" />
-        <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/interfaz/Simulador.java" />
-        <option value="$PROJECT_DIR$/Tests/src/test/TestBanco.java" />
         <option value="$PROJECT_DIR$/Tests/src/test/TestIO.java" />
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/bolsa/BolsaValores.java" />
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/personas/AgenteBolsa.java" />
         <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/Bank.java" />
+        <option value="$PROJECT_DIR$/src/simulador/bolsa/poo/interfaz/Simulador.java" />
+        <option value="$PROJECT_DIR$/Tests/src/test/TestBanco.java" />
       </list>
     </option>
   </component>
@@ -326,7 +324,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.TestBanco">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -492,8 +490,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Application.TestBanco" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TestBanco" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
         <item index="2" class="java.lang.String" itemvalue="Application.TestSolicitudes" />
         <item index="3" class="java.lang.String" itemvalue="Application.TestIO" />
       </list>
@@ -514,7 +512,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -860,14 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/interfaz/Simulador.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/src/test/TestSolicitudes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -932,14 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/personas/AgenteBolsa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="38" column="47" lean-forward="true" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/solicitudes/MensajeCompra.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -958,27 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/bolsa/BolsaValores.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="45" column="67" lean-forward="true" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#borrarEmpresa#0;class#BolsaValores#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/src/test/TestBanco.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/personas/clientes/Cliente.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -987,11 +947,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/bolsa/BolsaValores.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="48" column="22" lean-forward="true" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#borrarEmpresa#0;class#BolsaValores#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/interfaz/Simulador.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="206" column="47" lean-forward="true" selection-start-line="206" selection-start-column="47" selection-end-line="206" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/personas/AgenteBolsa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="50" column="1" lean-forward="true" selection-start-line="50" selection-start-column="1" selection-end-line="50" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/simulador/bolsa/poo/modelo/banco/Bank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="146" column="16" lean-forward="false" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
+        <state relative-caret-position="547">
+          <caret line="150" column="66" lean-forward="true" selection-start-line="150" selection-start-column="66" selection-end-line="150" selection-end-column="66" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/src/test/TestBanco.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="100" column="31" lean-forward="true" selection-start-line="100" selection-start-column="31" selection-end-line="100" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
