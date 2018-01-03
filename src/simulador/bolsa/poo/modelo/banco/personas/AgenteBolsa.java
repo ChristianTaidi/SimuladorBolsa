@@ -43,8 +43,8 @@ public class AgenteBolsa extends Persona implements Serializable {
     public ArrayList<String> ejecutarSolicitudes() throws InvalidCodeException, NoSuchEnterpriseException {
         ArrayList<String> respuestas = new ArrayList<>();
         for (Mensaje msg:solicitudes){
-            for(String mensaje:this.getBolsa().recibirSolicitud(msg.codificar()))
-            respuestas.add(mensaje);
+            for(Mensaje mensaje:this.getBolsa().recibirSolicitud(msg.codificar()))
+            respuestas.add(mensaje.codificar());
         }
         return respuestas;
     }

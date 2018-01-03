@@ -2,6 +2,8 @@ package test;
 
 import simulador.bolsa.poo.io.*;
 
+
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -30,6 +32,8 @@ public class TestIO {
                 System.out.println("Fallo");
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

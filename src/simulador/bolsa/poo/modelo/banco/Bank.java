@@ -129,6 +129,7 @@ public class Bank implements Entidad,Serializable {
             throw new IllegalArgumentException("El dni no puede ser nulo, y la empresa tampoco") ;
         }
     }
+
     public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException {
         ArrayList<String> mensajes = agente.ejecutarSolicitudes();
         for (String mensaje : mensajes) {

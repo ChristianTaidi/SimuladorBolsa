@@ -77,6 +77,8 @@ public class Simulador {
         } catch (IOException e) {
             System.out.println("Error al guardar copia de seguridad");
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
