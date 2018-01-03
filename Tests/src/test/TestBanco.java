@@ -7,6 +7,7 @@ import simulador.bolsa.poo.modelo.bolsa.BolsaValores;
 
 public class TestBanco {
     private static final Bank BANCO = new Bank("test",new AgenteBolsa("testAg","45687568S",new BolsaValores()));
+
     public static void main(String[]args){
         testAddCliente();
         testDelteCliente();
@@ -16,6 +17,7 @@ public class TestBanco {
         testAddSolicitudActualizacion();
         testEjecutarSolicitudes();
     }
+
 
     public static void testAddCliente(){
 

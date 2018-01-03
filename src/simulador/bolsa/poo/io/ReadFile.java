@@ -18,9 +18,9 @@ public class ReadFile implements IOStream {
         objectIn = new ObjectInputStream(stream);
     }
 
-    public Object read() throws IOException{
+    public Object read() throws IOException, ClassNotFoundException {
 
-            return  objectIn.read();
+            return  objectIn.readObject();
 
     }
 

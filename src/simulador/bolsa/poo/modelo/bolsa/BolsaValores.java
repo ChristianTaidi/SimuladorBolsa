@@ -3,6 +3,7 @@ package simulador.bolsa.poo.modelo.bolsa;
 import simulador.bolsa.poo.excepciones.InvalidCodeException;
 import simulador.bolsa.poo.excepciones.NoSuchEnterpriseException;
 import simulador.bolsa.poo.interfaces.Entidad;
+import simulador.bolsa.poo.modelo.solicitudes.Mensaje;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaActualizacion;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaCompra;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaVenta;
@@ -20,10 +21,10 @@ public class BolsaValores implements Entidad,Serializable {
         this.empresas= new TreeMap();
     }
 
-    public ArrayList<String> recibirSolicitud(String mensaje)throws InvalidCodeException,NoSuchEnterpriseException {
+    public ArrayList<Mensaje> recibirSolicitud(String mensaje)throws InvalidCodeException,NoSuchEnterpriseException {
 
 
-            ArrayList<String> resultado = new ArrayList();
+            ArrayList<Mensaje> resultado = new ArrayList();
             String[] partes = mensaje.split(Pattern.quote("|"));
             int codigoId = Integer.parseInt(partes[0]);
 
@@ -40,7 +41,7 @@ public class BolsaValores implements Entidad,Serializable {
                     boolean acceso = (dInversion > precioAcciones);
                     int numAcciones = (int) (precioAcciones / dInversion);
                     float dRestante = dInversion - (numAcciones * precioAcciones);
-                    resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante).codificar());
+                    resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante));
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() + numAcciones);
                     this.actualizarValores(numAcciones,nomEmpresa);
                     return resultado;
@@ -59,7 +60,7 @@ public class BolsaValores implements Entidad,Serializable {
 
                     float dineroVenta = (precioAcciones * numAcciones);
 
-                    resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta).codificar());
+                    resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta));
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() - numAcciones);
                     this.actualizarValores(-numAcciones,nomEmpresa);
                     return resultado;
@@ -70,7 +71,7 @@ public class BolsaValores implements Entidad,Serializable {
 
                 for (Empresa emp : empresas.values()) {
 
-                    resultado.add(new MensajeRespuestaActualizacion(codigoId, emp.getNomEmpresa(), emp.getPrecioAcciones()).codificar());
+                    resultado.add(new MensajeRespuestaActualizacion(codigoId, emp.getNomEmpresa(), emp.getPrecioAcciones()));
                 }
                 return resultado;
             } else {
