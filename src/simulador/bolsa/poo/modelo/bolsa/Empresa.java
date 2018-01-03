@@ -58,7 +58,11 @@ public class Empresa implements Imprimible,Serializable {
     }
 
     public float getIncrementoPorcentaje() {
-        return ((this.getPrecioAcciones()/this.getPrecioAntiguoAcc())*100);
+        if(this.getPrecioAntiguoAcc()>0) {
+            return ((this.getPrecioAcciones() / this.getPrecioAntiguoAcc()) * 100);
+        }else{
+            return 0;
+        }
     }
 
     public void actualizarValor (int numAcc){
@@ -75,10 +79,10 @@ public class Empresa implements Imprimible,Serializable {
         System.out.println("Valor actual de las acciones: " + precioAcciones);
         System.out.println("Valor antiguo de las acciones: " + precioAntiguoAcc);
         if (precioAcciones > precioAntiguoAcc){
-            System.out.println("↑ " + this.getIncrementoNum() + " / " + this.getIncrementoPorcentaje());
+            System.out.println("↑ " + this.getIncrementoNum() + " / " + this.getIncrementoPorcentaje()+"%");
         }
         else {
-            System.out.println("↓ " + this.getIncrementoNum() + " / " + this.getIncrementoPorcentaje());
+            System.out.println("↓ " + this.getIncrementoNum() + " / " + this.getIncrementoPorcentaje()+"%");
         }
 
     }

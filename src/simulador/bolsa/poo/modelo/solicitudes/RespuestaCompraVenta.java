@@ -14,8 +14,8 @@ public abstract class RespuestaCompraVenta extends CompraVenta{
         this.setdRestante(dRestante);
     }
 
-    public String serialize (){
-        return getCodigoId() + "|" + getCliente() + "|" + getAcceso() + "|" + getNumAcciones() + "|" + getPrecioAcciones() + "|" + getdRestante();
+    public String codificar (){
+        return this.getCodigoId() + "|" + this.getCliente() + "|" +this.getnomEmpresa()+ "|" + this.getAcceso() + "|" + getNumAcciones() + "|" + getPrecioAcciones() + "|" + getdRestante();
     }
 
     public void setAcceso(boolean acceso) {

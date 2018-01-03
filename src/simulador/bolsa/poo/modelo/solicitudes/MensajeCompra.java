@@ -24,11 +24,6 @@ public class MensajeCompra extends CompraVenta {
         return getCodigoId() + "|" + getCliente() + "|" + getdInversion() + "|" + getnomEmpresa();
     }
 
-    public int ejecutar(){
-        int codigoMensaje = 1;
-
-        return codigoMensaje;
-    }
 
 
 }

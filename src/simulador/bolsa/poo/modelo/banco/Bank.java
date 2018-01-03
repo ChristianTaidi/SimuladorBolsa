@@ -95,7 +95,6 @@ public class Bank implements Entidad,Serializable {
                 switch (cod) {
                     case 0:
                         if (clientes.containsKey(dni)) {
-
                                 agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getDni(), dinero, empresa));
                         } else {
                             throw new InexistentClientException("El Cliente no existe");
