@@ -61,9 +61,9 @@ public class Empresa implements Imprimible,Serializable {
         return ((this.getPrecioAcciones()/this.getPrecioAntiguoAcc())*100);
     }
 
-    public void actualizarValor (){
+    public void actualizarValor (int numAcc){
        this.setPrecioAntiguoAcc(this.getPrecioAcciones());
-       this.setPrecioAcciones((float) ((this.getNumAcciones()*0.1)+this.getPrecioAcciones()));
+       this.setPrecioAcciones((float) ((numAcc*0.1)+this.getPrecioAcciones()));
 
     }
 

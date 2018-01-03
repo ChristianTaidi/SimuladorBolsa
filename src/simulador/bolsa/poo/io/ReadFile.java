@@ -9,6 +9,10 @@ public class ReadFile implements IOStream {
     private  FileInputStream stream;
     private  ObjectInputStream  objectIn;
 
+    public ReadFile(String fich) throws IOException {
+        stream= new FileInputStream(fich);
+        objectIn = new ObjectInputStream(stream);
+    }
     public ReadFile(File fich) throws IOException {
         stream= new FileInputStream(fich);
         objectIn = new ObjectInputStream(stream);
@@ -20,8 +24,9 @@ public class ReadFile implements IOStream {
 
     }
 
-    @Override
-    public void cerrar(File fich) throws IOException{
+
+    public void cerrar() throws IOException{
         objectIn.close();
     }
+
 }

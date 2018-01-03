@@ -6,5 +6,5 @@ import java.io.IOException;
 public interface IOStream {
 
 
-    abstract public void cerrar(File fich) throws IOException;
+    abstract public void cerrar() throws IOException;
 }
