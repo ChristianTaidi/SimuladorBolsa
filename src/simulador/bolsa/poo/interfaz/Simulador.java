@@ -55,21 +55,21 @@ public class Simulador {
     }
 
     public void backupLoad(String codElem) throws InvalidBackupElementException{
-
+        ReadFile load =null;
 
         try {
         switch (codElem) {
             case "banc":
 
-                    ReadFile load = new ReadFile(FICHERO_BANCO);
+                    load= new ReadFile(FICHERO_BANCO);
                     banco = (Bank) load.read();
-                    load.cerrar();
+
                 break;
             case "bolsa":
 
                     load = new ReadFile(FICHERO_BOLSA);
                     bolsa = (BolsaValores) load.read();
-                    load.cerrar();
+
                 break;
             default:
                 throw new InvalidBackupElementException("No se puede hacer copia de seguridad del elemento: " + codElem);
@@ -79,18 +79,20 @@ public class Simulador {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }finally{
+            load.cerrar();
         }
     }
 
     public void backupSave(String codElem) throws InvalidBackupElementException{
-
+        WriteFile save = null;
         try {
             switch (codElem) {
                 case "banc":
 
-                    WriteFile save = new WriteFile(FICHERO_BANCO);
+                    save = new WriteFile(FICHERO_BANCO);
                     save.write(banco);
-                    save.cerrar();
+
 
 
                     break;
@@ -98,7 +100,7 @@ public class Simulador {
 
                     save = new WriteFile(FICHERO_BOLSA);;
                     save.write(bolsa);
-                    save.cerrar();
+
 
                     break;
                 default:
@@ -109,6 +111,8 @@ public class Simulador {
                     System.out.println("Error al guardar copia de seguridad");
                     e.printStackTrace();
 
+        }finally{
+                save.cerrar();
         }
     }
 

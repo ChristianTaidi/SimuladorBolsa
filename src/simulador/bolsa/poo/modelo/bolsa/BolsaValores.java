@@ -43,7 +43,6 @@ public class BolsaValores implements Entidad,Serializable {
                     float dRestante = dInversion - (numAcciones * precioAcciones);
                     resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante));
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() + numAcciones);
-                    this.actualizarValores(numAcciones,nomEmpresa);
                     return resultado;
 
                 } else
@@ -62,7 +61,7 @@ public class BolsaValores implements Entidad,Serializable {
 
                     resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta));
                     empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() - numAcciones);
-                    this.actualizarValores(-numAcciones,nomEmpresa);
+
                     return resultado;
 
                 } else
@@ -109,7 +108,7 @@ public class BolsaValores implements Entidad,Serializable {
 
     }
 
-    private void actualizarValores (int numAcc,String nomEmpresa) throws NoSuchEnterpriseException {
+    public void actualizarValores (int numAcc,String nomEmpresa) throws NoSuchEnterpriseException {
             if (empresas.containsKey(nomEmpresa)) {
                 Empresa emp = this.empresas.get(nomEmpresa);
                 emp.actualizarValor(numAcc);

@@ -140,6 +140,7 @@ public class Bank implements Entidad,Serializable {
                     if (clienteActual.getSaldo()>precioAcciones*numAcciones) {
                         clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones, empresa, precioAcciones);
                         clienteActual.actualizarSaldo(saldoRestante);
+                        agente.actualizarBolsa(numAcciones,empresa);
                     }else{
                         throw new NotEnoughMoneyException("El cliente no tiene dinero para hacer la compra de inversiones de la empresa"+empresa);
                     }
@@ -154,6 +155,7 @@ public class Bank implements Entidad,Serializable {
                     if(clienteActual.tieneAcciones(empresa)>= numAcciones) {
                         clienteActual.addStockPackage(clienteActual.tieneAcciones(empresa) - numAcciones, empresa, precioAcciones);
                         clienteActual.actualizarSaldo(dineroRestante + clienteActual.getSaldo());
+                        agente.actualizarBolsa(-numAcciones,empresa);
                     }else{
                         throw new NotEnoughActionsException("El cliente no tiene acciones suficientes de la empresa: "+empresa+", tiene: "+clienteActual.tieneAcciones(empresa)+" acciones");
                     }

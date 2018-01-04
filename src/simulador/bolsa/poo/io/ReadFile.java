@@ -25,8 +25,12 @@ public class ReadFile implements IOStream {
     }
 
 
-    public void cerrar() throws IOException{
-        objectIn.close();
+    public void cerrar() {
+        try {
+            objectIn.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

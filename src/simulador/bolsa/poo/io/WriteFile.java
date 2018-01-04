@@ -23,7 +23,11 @@ public class WriteFile<T> implements IOStream {
     }
 
     @Override
-    public void cerrar() throws IOException{
-       objectOut.close();
+    public void cerrar() {
+        try {
+            objectOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

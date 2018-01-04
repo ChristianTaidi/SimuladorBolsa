@@ -48,4 +48,8 @@ public class AgenteBolsa extends Persona implements Serializable {
         }
         return respuestas;
     }
+
+    public void actualizarBolsa(int nAcc, String empresa) throws NoSuchEnterpriseException {
+        bolsa.actualizarValores(nAcc,empresa);
+    }
 }

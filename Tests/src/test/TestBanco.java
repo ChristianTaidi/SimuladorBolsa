@@ -21,7 +21,7 @@ public class TestBanco {
 
     public static void testAddCliente(){
 
-        BANCO.addCliente("clientetest","45687984S",30);
+        BANCO.addCliente("Pedro","45687984S",30);
         BANCO.imprimirEstado();
     }
     public static void testDelteCliente(){
