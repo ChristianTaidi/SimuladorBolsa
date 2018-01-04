@@ -9,30 +9,35 @@ public class TestBanco {
     private static final Bank BANCO = new Bank("test",new AgenteBolsa("testAg","45687568S",new BolsaValores()));
 
     public static void main(String[]args){
-        testAddCliente();
-        testDelteCliente();
-        testAddCliente();
-        testAddSolicitudCompra();
-        testAddSolicitudVenta();
-        testAddSolicitudActualizacion();
-        testEjecutarSolicitudes();
+        testBanco();
+        testNombreNull();
+        testDniNull();
+
     }
 
 
-    public static void testAddCliente(){
+    public static void testBanco(){
 
         BANCO.addCliente("Pedro","45687984S",30);
         BANCO.imprimirEstado();
-    }
-    public static void testDelteCliente(){
         try {
             BANCO.deleteCliente("45687984S");
         } catch (InexistentClientException e) {
             e.printStackTrace();
         }
         BANCO.imprimirEstado();
-    }
-    public static void testAddSolicitudCompra(){
+
+        BANCO.addCliente("Pedro","45687984S",30);
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.mejorarCliente("45687984S");
+            BANCO.solicitarRecomendacion("45687984S");
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotPremiumClientException e) {
+            e.printStackTrace();
+        }
 
         try {
             BANCO.realizarSolicitud(0,"45687984S",20,0,"Tesla");
@@ -49,27 +54,23 @@ public class TestBanco {
         }
 
         BANCO.imprimirEstado();
-    }
-
-   public static void testAddSolicitudVenta(){
 
         try {
-           BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
-       } catch (NoSuchEnterpriseException e) {
-           e.printStackTrace();
-       } catch (NotEnoughActionsException e) {
-           e.printStackTrace();
-       } catch (InvalidCodeException e) {
-           e.printStackTrace();
-       } catch (InexistentClientException e) {
-           e.printStackTrace();
-       } catch (NotEnoughMoneyException e) {
-           e.printStackTrace();
-       }
+            BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
 
-       BANCO.imprimirEstado();
-   }
-    public static void testAddSolicitudActualizacion(){
+        BANCO.imprimirEstado();
+
         try {
             BANCO.realizarSolicitud(2,"00",0,0,"");
         } catch (NoSuchEnterpriseException e) {
@@ -85,8 +86,7 @@ public class TestBanco {
         }
 
         BANCO.imprimirEstado();
-    }
-    public static void testEjecutarSolicitudes(){
+
         try {
             BANCO.ejecutarSolicitudes();
         } catch (InvalidCodeException e) {
@@ -100,4 +100,165 @@ public class TestBanco {
         }
         BANCO.imprimirEstado();
     }
+
+    public static void testNombreNull(){
+        try {
+            BANCO.addCliente(null, "45687984S", 30);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+        try {
+            BANCO.deleteCliente("45687984S");
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+
+        BANCO.addCliente("Pedro","45687984S",30);
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(0,"45687984S",20,0,"Tesla");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(2,"00",0,0,"");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.ejecutarSolicitudes();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+    }
+
+    public static void testDniNull(){
+        try {
+            BANCO.addCliente("Pedro", null, 30);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+        try {
+            BANCO.deleteCliente("45687984S");
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+
+        BANCO.addCliente("Pedro","45687984S",30);
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(0,"45687984S",20,0,"Tesla");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.realizarSolicitud(2,"00",0,0,"");
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (InexistentClientException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        }
+
+        BANCO.imprimirEstado();
+
+        try {
+            BANCO.ejecutarSolicitudes();
+        } catch (InvalidCodeException e) {
+            e.printStackTrace();
+        } catch (NoSuchEnterpriseException e) {
+            e.printStackTrace();
+        } catch (NotEnoughMoneyException e) {
+            e.printStackTrace();
+        } catch (NotEnoughActionsException e) {
+            e.printStackTrace();
+        }
+        BANCO.imprimirEstado();
+    }
+
+
+
 }

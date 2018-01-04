@@ -1,13 +1,14 @@
 package simulador.bolsa.poo.modelo.banco.personas;
 
 import simulador.bolsa.poo.excepciones.*;
+import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.bolsa.BolsaValores;
 import simulador.bolsa.poo.modelo.solicitudes.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AgenteBolsa extends Persona implements Serializable {
+public class AgenteBolsa extends Persona implements Serializable,Imprimible {
 
     private ArrayList<Mensaje> solicitudes;
 

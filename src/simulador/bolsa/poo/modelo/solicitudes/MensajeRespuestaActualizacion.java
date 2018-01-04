@@ -1,6 +1,8 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
-public class MensajeRespuestaActualizacion extends MensajeActualizacion {
+import java.io.Serializable;
+
+public class MensajeRespuestaActualizacion extends MensajeActualizacion implements Serializable{
 
     private String enterpriseName;
     private float stockPrice;

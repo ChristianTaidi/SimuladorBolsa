@@ -1,5 +1,6 @@
 package simulador.bolsa.poo.interfaz;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,11 +21,11 @@ public class EntradaDeDatos {
     }
 
 
-    public int leerEntero() {
+    public int leerEntero() throws InputMismatchException{
         return entrada.nextInt();
     }
 
-    public float leerFloat(){
+    public float leerFloat()throws InputMismatchException{
         return entrada.nextFloat();
     }
 

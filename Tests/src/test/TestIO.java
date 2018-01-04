@@ -13,6 +13,7 @@ public class TestIO {
 
     public static void main(String[]args){
         testFicheroEntero();
+        testFicheroCadena();
 
     }
 
@@ -38,8 +39,26 @@ public class TestIO {
         }
     }
 
-    public void testFicheroCadena(){
-
+    public static void testFicheroCadena(){
+        try {
+            WriteFile testString = new WriteFile("string.dat");
+            testString.write("Test");
+            ReadFile testlectura = new ReadFile("string.dat");
+            Object resultado= testlectura.read();
+            if (resultado==null){
+                System.out.println("Fallo");
+            }
+            if (!(resultado instanceof String)){
+                System.out.println("Fallo");
+            }
+            if((String)resultado!="Test"){
+                System.out.println("Fallo");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

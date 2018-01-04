@@ -1,6 +1,8 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
-public class MensajeActualizacion extends Mensaje  {
+import java.io.Serializable;
+
+public class MensajeActualizacion extends Mensaje implements Serializable {
 
     public MensajeActualizacion (int codigoId){
         this.setCodigo(codigoId);

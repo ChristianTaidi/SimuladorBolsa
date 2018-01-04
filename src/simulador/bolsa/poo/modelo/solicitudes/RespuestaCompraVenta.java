@@ -1,6 +1,8 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
-public abstract class RespuestaCompraVenta extends CompraVenta{
+import java.io.Serializable;
+
+public abstract class RespuestaCompraVenta extends CompraVenta implements Serializable{
     private boolean acceso;
     private int numAcciones;
     private float precioAcciones;

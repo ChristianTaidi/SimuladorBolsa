@@ -11,13 +11,14 @@ import simulador.bolsa.poo.modelo.solicitudes.MensajeVenta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 public class Bank implements Entidad,Serializable {
 
     private String nombre;
     private TreeMap<String,Cliente>clientes;
     private AgenteBolsa agente;
-    private Gestor gest = new Gestor("01245786J","Antonio");
+    private Gestor gest = new Gestor("Antonio","01234567A");
     private int contadorSolicitudes;
 
     public Bank(String name, AgenteBolsa agente){
@@ -77,7 +78,7 @@ public class Bank implements Entidad,Serializable {
     public void solicitarRecomendacion(String dni) throws NotPremiumClientException,InexistentClientException,IllegalArgumentException{
         if (dni != null) {
             if (clientes.containsKey(dni)) {
-                if (clientes.get(dni).getClass().getName().equals("ClientePremium")) {
+                if (clientes.get(dni) instanceof  ClientePremium) {
                    gest.recomendar();
                 } else {
                     throw new NotPremiumClientException("El cliente no es premium, para ser premium seleccione la opción <7>");
@@ -96,6 +97,7 @@ public class Bank implements Entidad,Serializable {
                     case 0:
                         if (clientes.containsKey(dni)) {
                                 agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getDni(), dinero, empresa));
+                                this.incrementarContadorSolicitudes();
                         } else {
                             throw new InexistentClientException("El Cliente no existe");
                         }
@@ -104,12 +106,14 @@ public class Bank implements Entidad,Serializable {
                         if (clientes.containsKey(dni)) {
 
                                 agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
+                                this.incrementarContadorSolicitudes();
                         }else{
                             throw new InexistentClientException("El Cliente no existe");
                          }
                         break;
                     case 2:
-                        agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * 3) + cod));
+                            agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * 3) + cod));
+                            this.incrementarContadorSolicitudes();
                         break;
 
                     default:
@@ -123,11 +127,20 @@ public class Bank implements Entidad,Serializable {
         }
     }
 
+    private void incrementarContadorSolicitudes() {
+        this.contadorSolicitudes=this.getContadorSolicitudes()+1;
+    }
+
+    private void resetContadorSolicitudes(){
+        this.contadorSolicitudes=0;
+    }
+
     public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException, NotEnoughMoneyException, NotEnoughActionsException {
+        this.resetContadorSolicitudes();
         ArrayList<String> mensajes = agente.ejecutarSolicitudes();
         for (String mensaje : mensajes) {
             try {
-                String[] vector = mensaje.split("|");
+                String[] vector = mensaje.split(Pattern.quote("|"));
                 int codigo = Integer.parseInt(vector[0]);
                 if (codigo % 3 == 0) {
                     String cliente = vector[1];

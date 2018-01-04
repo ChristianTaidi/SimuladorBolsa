@@ -1,7 +1,9 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
 
-public class MensajeCompra extends CompraVenta {
+import java.io.Serializable;
+
+public class MensajeCompra extends CompraVenta implements Serializable{
 
     private float dInversion;
 

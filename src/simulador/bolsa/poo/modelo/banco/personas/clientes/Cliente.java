@@ -33,10 +33,16 @@ public class Cliente extends Persona implements Serializable,Imprimible{
         }
     }
 
-    public Cliente(Cliente c){
-        this.setDni(c.getDni());
-        this.setNombre(c.getNombre());
-        this.setSaldo(c.getSaldo());
+    public Cliente(Cliente c)throws IllegalArgumentException{
+        if ((c.getDni() != null)||(c.getNombre()!=null)) {
+            this.setDni(c.getDni());
+            this.setNombre(c.getNombre());
+            this.setSaldo(c.getSaldo());
+            this.paquetesDeAcciones = c.getPaqueteAcciones();
+        }else{
+            throw new IllegalArgumentException("El nombre o dni del cliente son nulos");
+        }
+
     }
 
     public int tieneAcciones(String emp) throws NoSuchEnterpriseException{
@@ -74,13 +80,24 @@ public class Cliente extends Persona implements Serializable,Imprimible{
 
 
     public void imprimir() {
-        System.out.println("Cliente: "+this.getNombre()+" con DNI: "+this.getDni()+" y saldo de: "+this.getSaldo()+"€");
-        for (PaqueteAcciones paq: paquetesDeAcciones.values()){
+        System.out.println("<<<<< Información de cliente >>>>>");
+        super.imprimir();
+        System.out.println("Saldo: " + this.getSaldo());
+        if (this.paquetesDeAcciones.size()>0){
+            for (PaqueteAcciones paq: paquetesDeAcciones.values()){
             paq.imprimir();
+            }
+        }else{
+            System.out.println("El cliente no tiene acciones de ninguna empresa");
         }
+
     }
 
-    public void actualizarSaldo(float saldoRestante) {
-        this.setSaldo(saldoRestante);
+    public void actualizarSaldo(float saldoNuevo) {
+        this.setSaldo(saldoNuevo);
+    }
+
+    public TreeMap<String,PaqueteAcciones> getPaqueteAcciones() {
+        return this.paquetesDeAcciones;
     }
 }

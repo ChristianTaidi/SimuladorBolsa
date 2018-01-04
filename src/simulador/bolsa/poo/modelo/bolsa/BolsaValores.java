@@ -67,10 +67,11 @@ public class BolsaValores implements Entidad,Serializable {
                 } else
                     throw new NoSuchEnterpriseException("La empresa no existe");
             } else if ((codigoId % 3) == 2) {
-
+                int code = 0;
                 for (Empresa emp : empresas.values()) {
 
-                    resultado.add(new MensajeRespuestaActualizacion(codigoId, emp.getNomEmpresa(), emp.getPrecioAcciones()));
+                    resultado.add(new MensajeRespuestaActualizacion((code*3)+2, emp.getNomEmpresa(), emp.getPrecioAcciones()));
+                    code+=1;
                 }
                 return resultado;
             } else {

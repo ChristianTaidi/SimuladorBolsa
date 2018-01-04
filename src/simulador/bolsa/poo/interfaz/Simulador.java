@@ -75,7 +75,7 @@ public class Simulador {
                 throw new InvalidBackupElementException("No se puede hacer copia de seguridad del elemento: " + codElem);
         }
         } catch (IOException e) {
-            System.out.println("Error al guardar copia de seguridad");
+            System.out.println("Error al cargar copia de seguridad");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

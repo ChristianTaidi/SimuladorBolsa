@@ -1,6 +1,8 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
-public abstract class  Mensaje  {
+import java.io.Serializable;
+
+public abstract class  Mensaje implements Serializable {
     private int codigoId;
 
 

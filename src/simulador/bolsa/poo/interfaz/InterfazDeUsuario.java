@@ -2,6 +2,8 @@ package simulador.bolsa.poo.interfaz;
 
 import simulador.bolsa.poo.excepciones.*;
 
+import java.util.InputMismatchException;
+
 public class InterfazDeUsuario {
 
     private Simulador sim;
@@ -17,6 +19,7 @@ public class InterfazDeUsuario {
     public void Ejecutar(){
         do {
             sim.printMenu();
+            try{
             option = ent.leerEntero();
             switch (option) {
 
@@ -137,6 +140,8 @@ public class InterfazDeUsuario {
                         }
                     }catch (IllegalArgumentException e){
                         System.out.println(e.getMessage());
+                    }catch (InputMismatchException e){
+                        System.out.println("Formato de entrada incorrecto");
                     }
                     finally {
                     break;
@@ -242,10 +247,18 @@ public class InterfazDeUsuario {
                     break;
 
                 default:
-                    System.out.println("Opción no válida: " + option);
-
+                    if (option != 0) {
+                        System.out.println("Opción no válida: " + option);
+                    }
 
             }
+            }catch(InputMismatchException e){
+                e.printStackTrace();
+                System.out.println("Formato de opción no válido");
+                option = 404;
+            }
+            System.out.println("Pulsa enter para seguir");
+            ent.leerCadena();
         }while (option != 0);
     }
 }
