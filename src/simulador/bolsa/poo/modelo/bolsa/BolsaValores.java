@@ -2,7 +2,7 @@ package simulador.bolsa.poo.modelo.bolsa;
 
 import simulador.bolsa.poo.excepciones.InvalidCodeException;
 import simulador.bolsa.poo.excepciones.NoSuchEnterpriseException;
-import simulador.bolsa.poo.interfaces.Entidad;
+import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.solicitudes.Mensaje;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaActualizacion;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaCompra;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-public class BolsaValores implements Entidad,Serializable {
+public class BolsaValores implements Imprimible,Serializable {
     private TreeMap <String, Empresa> empresas;
 
     public BolsaValores(){
@@ -84,9 +84,13 @@ public class BolsaValores implements Entidad,Serializable {
     }
 
 
-    public void imprimirEstado() {
-        for (Empresa emp: empresas.values()){
-            emp.imprimir();
+    public void imprimir() {
+        if (this.empresas.size() >0) {
+            for (Empresa emp : empresas.values()) {
+                emp.imprimir();
+            }
+        }else{
+            System.out.println("La Bolsa no tiene empresas");
         }
     }
 

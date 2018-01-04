@@ -35,21 +35,27 @@ public class InterfazDeUsuario {
 
                 case 3:
                     try {
-                        System.out.println("Introduzca los datos del cliente(Formato -> nombre/dni/saldo inicial)");
-                        String cadena = ent.leerCadena();
-                        if (cadena!=null) {
-                            String[] div = cadena.split("/");
-                            if (div.length==3) {
-                                String nombre = div[0];
-                                String dni = div[1];
-                                Float saldo = Float.parseFloat(div[2]);
-                                sim.addCliente(nombre, dni, saldo);
+
+                        String nombre;
+                        String dni;
+                        Float saldo;
+                        do{
+                            System.out.println("Introduzca los datos del cliente(Formato -> nombre/dni/saldo inicial)");
+                            String cadena = ent.leerCadena();
+                            if (cadena!=null) {
+                                String[] div = cadena.split("/");
+                                if (div.length==3) {
+                                    nombre = div[0];
+                                    dni = div[1];
+                                    saldo = Float.parseFloat(div[2]);
+                                }else{
+                                    throw new StringFormatException("El formato de la cadena es erroneo");
+                                }
                             }else{
-                                throw new StringFormatException("El formato de la cadena es erroneo");
+                                throw new IllegalArgumentException("Cadena vacia");
                             }
-                        }else{
-                            throw new IllegalArgumentException("Cadena vacia");
-                        }
+                        }while (saldo <0);
+                            sim.addCliente(nombre, dni, saldo);
                     }catch(NumberFormatException e){
                         System.out.println("Formato de entrada incorrecto");
                     }catch(IllegalArgumentException e){
@@ -110,9 +116,10 @@ public class InterfazDeUsuario {
                 }
 
                 case 8:
-                    System.out.println("Introduzca el dni: ");
-                    String dni = ent.leerCadena();
+
                     try {
+                        System.out.println("Introduzca el dni: ");
+                        String dni = ent.leerCadena();
                         sim.recomendacion(dni);
                     }catch(NotPremiumClientException e){
                         System.out.println(e.getMessage());
@@ -188,11 +195,25 @@ public class InterfazDeUsuario {
                         break;
                     }
                 case 14:
-                    System.out.println("Introduzca los datos necesarios para la compra (dni / dinero a invertir / empresa)");
-                    String cadena=ent.leerCadena();
-                    String[] partes = cadena.split("/");
                     try {
-                        sim.solicitarCompra( partes[0], Float.parseFloat(partes[1]), partes[2]);
+                        Float dinero;
+                        String empresa;
+                        String dni;
+                        do {
+                            System.out.println("Introduzca los datos necesarios para la compra (dni / dinero a invertir / empresa--El dinero debe ser positivo)");
+                            String cadena = ent.leerCadena();
+                            String[] partes = cadena.split("/");
+                            if(partes.length==3) {
+                                dinero = Float.parseFloat(partes[1]);
+                                dni = partes[0];
+                                empresa = partes[2];
+                            }else{
+                                throw new StringFormatException("Formato erroneo");
+                            }
+                        }while(dinero<0);
+
+                            sim.solicitarCompra(dni, dinero,empresa);
+                            System.out.println("Solicitud almacenada");
                     }catch(NoSuchEnterpriseException e){
                         System.out.println(e.getMessage());
                     }catch (NotEnoughMoneyException e){
@@ -201,20 +222,31 @@ public class InterfazDeUsuario {
                         System.out.println("Fallo interno a la hora de realizar la solicitud, intentelo de nuevo");
                     }catch(InexistentClientException e){
                         System.out.println(e.getMessage());
-                    }catch(IllegalArgumentException e){
+                    } catch(NumberFormatException e){
+                        System.out.println("Formato erroneo");
+                    } catch(IllegalArgumentException e) {
                         System.out.println(e.getMessage());
-                    }
-
-                    finally {
+                    } catch (StringFormatException e) {
+                        System.out.println(e.getMessage());
+                    } finally{
                         break;
                     }
                 case 15:
-
-                    System.out.println("Introduzca los datos necesarios para la venta (dni / número de acciones / empresa)");
-                    cadena=ent.leerCadena();
-                    partes = cadena.split("/");
                     try {
-                        sim.solicitarVenta( partes[0], Integer.parseInt(partes[1]),  partes[2]);
+                        int nAcciones;
+                        String empresa;
+                        String dni;
+                        do {
+                            System.out.println("Introduzca los datos necesarios para la venta (dni / número de acciones / empresa)");
+                            String cadena = ent.leerCadena();
+                            String[] partes = cadena.split("/");
+                            dni = partes[0];
+                            nAcciones = Integer.parseInt(partes[1]);
+                            empresa = partes[2];
+                        }while(nAcciones <0);
+
+                        sim.solicitarVenta(dni, nAcciones,  empresa);
+                        System.out.println("Solicitud almacenada");
                     }catch(NoSuchEnterpriseException e){
                         System.out.println(e.getMessage());
                     }catch (NotEnoughActionsException e){
@@ -223,6 +255,8 @@ public class InterfazDeUsuario {
                         System.out.println("Fallo interno a la hora de realizar la solicitud, intentelo de nuevo");
                     }catch(InexistentClientException e){
                         System.out.println(e.getMessage());
+                    }catch(NumberFormatException e){
+                        System.out.println("Formato erroneo");
                     }catch(IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }
@@ -234,6 +268,7 @@ public class InterfazDeUsuario {
                 case 16:
 
                     sim.solicitarActualizacion();
+                    System.out.println("Solicitud almacenada");
                     break;
 
                 case 17:
@@ -242,7 +277,7 @@ public class InterfazDeUsuario {
                     break;
 
                 case 18:
-
+                    System.out.println("Ejecutando solicitudes...");
                     sim.ejecutarOperaciones();
                     break;
 

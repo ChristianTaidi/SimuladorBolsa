@@ -1,7 +1,7 @@
 package simulador.bolsa.poo.modelo.banco;
 
 import simulador.bolsa.poo.excepciones.*;
-import simulador.bolsa.poo.interfaces.Entidad;
+import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.banco.personas.*;
 import simulador.bolsa.poo.modelo.banco.personas.clientes.*;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeActualizacion;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
-public class Bank implements Entidad,Serializable {
+public class Bank implements Imprimible,Serializable {
 
     private String nombre;
     private TreeMap<String,Cliente>clientes;
@@ -56,9 +56,13 @@ public class Bank implements Entidad,Serializable {
         }
     }
 
-    public void imprimirEstado(){
-        for (Cliente cliente: clientes.values()){
-            cliente.imprimir();
+    public void imprimir(){
+        if (this.clientes.size()>0) {
+            for (Cliente cliente : clientes.values()) {
+                cliente.imprimir();
+            }
+        }else{
+            System.out.println("El banco no tiene clientes");
         }
     }
 

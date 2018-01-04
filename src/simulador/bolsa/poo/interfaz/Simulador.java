@@ -117,11 +117,11 @@ public class Simulador {
     }
 
     public void printClients() {
-        banco.imprimirEstado();
+        banco.imprimir();
     }
 
     public void printBolsa() {
-        bolsa.imprimirEstado();
+        bolsa.imprimir();
     }
 
     public void addCliente(String nombre, String dni,float saldo) {
