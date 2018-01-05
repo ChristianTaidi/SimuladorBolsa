@@ -8,25 +8,17 @@ import simulador.bolsa.poo.modelo.solicitudes.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class AgenteBolsa extends Persona implements Serializable,Imprimible {
+public class AgenteBolsa extends Gestor implements Serializable,Imprimible {
 
     private ArrayList<Mensaje> solicitudes;
 
-    private BolsaValores bolsa;
 
-    public BolsaValores getBolsa() {
-        return bolsa;
-    }
 
-    public void setBolsa(BolsaValores bolsa) {
-        this.bolsa = bolsa;
-    }
+
 
     public AgenteBolsa(String nombre, String dni, BolsaValores bols) {
-        this.setDni(dni);
-        this.setNombre(nombre);
+        super(nombre,dni,bols);
         this.solicitudes=new ArrayList();
-        this.setBolsa(bols);
 
     }
 
@@ -51,6 +43,6 @@ public class AgenteBolsa extends Persona implements Serializable,Imprimible {
     }
 
     public void actualizarBolsa(int nAcc, String empresa) throws NoSuchEnterpriseException {
-        bolsa.actualizarValores(nAcc,empresa);
+        this.getBolsa().actualizarValores(nAcc,empresa);
     }
 }

@@ -120,12 +120,17 @@ public class InterfazDeUsuario {
                     try {
                         System.out.println("Introduzca el dni: ");
                         String dni = ent.leerCadena();
-                        sim.recomendacion(dni);
+                        System.out.println("Introduzca el número de empresas que desea ver: ");
+                        int numEmpresas = ent.leerEntero();
+                        System.out.println("Imprimiendo las "+numEmpresas+" mejores empresas...");
+                        sim.recomendacion(dni,numEmpresas);
                     }catch(NotPremiumClientException e){
                         System.out.println(e.getMessage());
                     }catch (InexistentClientException e){
                         System.out.println(e.getMessage());
-                    }catch(IllegalArgumentException e){
+                    }catch(NumberFormatException e){
+                        System.out.println("Formato de entrada erroneo");
+                    } catch(IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }
                     finally {

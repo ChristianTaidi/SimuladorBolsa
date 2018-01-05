@@ -1,12 +1,10 @@
 package test;
 
-import simulador.bolsa.poo.io.*;
+import simulador.bolsa.poo.funcionalidades.io.ReadFile;
+import simulador.bolsa.poo.funcionalidades.io.WriteFile;
 
 
-
-import java.io.File;
 import java.io.IOException;
-import java.io.InvalidClassException;
 
 
 public class TestIO {

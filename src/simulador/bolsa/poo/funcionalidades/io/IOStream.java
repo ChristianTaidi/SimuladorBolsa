@@ -1,6 +1,5 @@
-package simulador.bolsa.poo.io;
+package simulador.bolsa.poo.funcionalidades.io;
 
-import java.io.File;
 import java.io.IOException;
 
 public interface IOStream {

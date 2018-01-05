@@ -2,6 +2,7 @@ package simulador.bolsa.poo.modelo.bolsa;
 
 import simulador.bolsa.poo.excepciones.InvalidCodeException;
 import simulador.bolsa.poo.excepciones.NoSuchEnterpriseException;
+import simulador.bolsa.poo.funcionalidades.comparadores.ComparadorEmpresas;
 import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.solicitudes.Mensaje;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaActualizacion;
@@ -11,7 +12,9 @@ import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaVenta;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import java.util.Iterator;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class BolsaValores implements Imprimible,Serializable {
@@ -124,4 +127,22 @@ public class BolsaValores implements Imprimible,Serializable {
     }
 
 
+    public void mejoresEmpresas(int numEmpresas) {
+        TreeSet<Empresa> empresasRentabilidad = new TreeSet<>(new ComparadorEmpresas());
+        Iterator iter = empresasRentabilidad.iterator();
+        if (numEmpresas < this.empresas.size()){
+            for(int i=0;i<numEmpresas;i++){
+                Empresa emp = (Empresa)iter.next();
+                emp.imprimir();
+            }
+
+        }else{
+            while (iter.hasNext()){
+                Empresa emp=(Empresa) iter.next();
+                emp.imprimir();
+            }
+            
+        }
+
+    }
 }

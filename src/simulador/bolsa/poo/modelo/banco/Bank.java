@@ -18,12 +18,13 @@ public class Bank implements Imprimible,Serializable {
     private String nombre;
     private TreeMap<String,Cliente>clientes;
     private AgenteBolsa agente;
-    private Gestor gest = new Gestor("Antonio","01234567A");
+    private  Gestor gest;
     private int contadorSolicitudes;
 
-    public Bank(String name, AgenteBolsa agente){
+    public Bank(String name, AgenteBolsa agente,Gestor gest){
         this.setAgenteBolsa(agente);
         this.setNombre(name);
+        this.setGest(gest);
         clientes = new TreeMap<>();
     }
 
@@ -79,11 +80,11 @@ public class Bank implements Imprimible,Serializable {
 
     }
 
-    public void solicitarRecomendacion(String dni) throws NotPremiumClientException,InexistentClientException,IllegalArgumentException{
+    public void solicitarRecomendacion(String dni,int numEmpresas) throws NotPremiumClientException,InexistentClientException,IllegalArgumentException{
         if (dni != null) {
             if (clientes.containsKey(dni)) {
                 if (clientes.get(dni) instanceof  ClientePremium) {
-                   gest.recomendar();
+                    gest.recomendar(numEmpresas);
                 } else {
                     throw new NotPremiumClientException("El cliente no es premium, para ser premium seleccione la opción <7>");
                 }
@@ -191,5 +192,9 @@ public class Bank implements Imprimible,Serializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setGest(Gestor gest) {
+        this.gest = gest;
     }
 }

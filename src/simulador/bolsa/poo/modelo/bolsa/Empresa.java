@@ -86,4 +86,8 @@ public class Empresa implements Imprimible,Serializable {
         }
 
     }
+
+    public float getRentabilidad() {
+        return this.getNumAcciones()/this.getPrecioAcciones();
+    }
 }

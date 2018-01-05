@@ -1,13 +1,13 @@
 package simulador.bolsa.poo.interfaz;
 
 import simulador.bolsa.poo.excepciones.*;
-import simulador.bolsa.poo.io.ReadFile;
-import simulador.bolsa.poo.io.WriteFile;
+import simulador.bolsa.poo.funcionalidades.io.ReadFile;
+import simulador.bolsa.poo.funcionalidades.io.WriteFile;
 import simulador.bolsa.poo.modelo.banco.*;
 import simulador.bolsa.poo.modelo.banco.personas.AgenteBolsa;
+import simulador.bolsa.poo.modelo.banco.personas.Gestor;
 import simulador.bolsa.poo.modelo.bolsa.BolsaValores;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Simulador {
@@ -15,13 +15,15 @@ public class Simulador {
     private Bank banco;
     private BolsaValores bolsa;
     private AgenteBolsa broker;
+    private Gestor gest;
     private static final String FICHERO_BANCO = "banco.dat";
     private static final String FICHERO_BOLSA = "bolsa.dat";
 
     public Simulador(){
         this.bolsa = new BolsaValores();
         this.broker = new AgenteBolsa("Pedro","76514859G",this.bolsa);
-        this.banco = new Bank("Simulador",this.broker);
+        this.gest = new Gestor("Antonio","12345678A",this.bolsa);
+        this.banco = new Bank("Simulador",this.broker,this.gest);
 
 
     }
@@ -190,8 +192,8 @@ public class Simulador {
         }
     }
 
-    public void recomendacion(String dni) throws NotPremiumClientException,InexistentClientException{
-        banco.solicitarRecomendacion(dni);
+    public void recomendacion(String dni,int numEmpresas) throws NotPremiumClientException,InexistentClientException{
+         banco.solicitarRecomendacion(dni,numEmpresas);
 
     }
 

@@ -19,16 +19,16 @@ public class TestBanco {
     public static void testBanco(){
 
         BANCO.addCliente("Pedro","45687984S",30);
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
         try {
             BANCO.deleteCliente("45687984S");
         } catch (InexistentClientException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         BANCO.addCliente("Pedro","45687984S",30);
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.mejorarCliente("45687984S");
@@ -53,7 +53,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
@@ -69,7 +69,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(2,"00",0,0,"");
@@ -85,7 +85,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.ejecutarSolicitudes();
@@ -98,7 +98,7 @@ public class TestBanco {
         } catch (NotEnoughActionsException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
     }
 
     public static void testNombreNull(){
@@ -107,16 +107,16 @@ public class TestBanco {
         }catch(IllegalArgumentException e){
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
         try {
             BANCO.deleteCliente("45687984S");
         } catch (InexistentClientException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         BANCO.addCliente("Pedro","45687984S",30);
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(0,"45687984S",20,0,"Tesla");
@@ -132,7 +132,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
@@ -148,7 +148,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(2,"00",0,0,"");
@@ -164,7 +164,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.ejecutarSolicitudes();
@@ -177,7 +177,7 @@ public class TestBanco {
         } catch (NotEnoughActionsException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
     }
 
     public static void testDniNull(){
@@ -186,16 +186,16 @@ public class TestBanco {
         }catch(IllegalArgumentException e){
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
         try {
             BANCO.deleteCliente("45687984S");
         } catch (InexistentClientException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         BANCO.addCliente("Pedro","45687984S",30);
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(0,"45687984S",20,0,"Tesla");
@@ -211,7 +211,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(1,"45687984S",0,2,"Tesla");
@@ -227,7 +227,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.realizarSolicitud(2,"00",0,0,"");
@@ -243,7 +243,7 @@ public class TestBanco {
             e.printStackTrace();
         }
 
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
 
         try {
             BANCO.ejecutarSolicitudes();
@@ -256,7 +256,7 @@ public class TestBanco {
         } catch (NotEnoughActionsException e) {
             e.printStackTrace();
         }
-        BANCO.imprimirEstado();
+        BANCO.imprimir();
     }
 
 
