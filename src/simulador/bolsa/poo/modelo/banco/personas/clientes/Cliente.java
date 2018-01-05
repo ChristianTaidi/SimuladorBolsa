@@ -49,7 +49,7 @@ public class Cliente extends Persona implements Serializable,Imprimible{
         if (paquetesDeAcciones.containsKey(emp)){
             return paquetesDeAcciones.get(emp).getnAcciones();
         }else{
-            throw new NoSuchEnterpriseException("El cliente no tiene acciones de esa empresa");
+            return 0;
         }
     }
 

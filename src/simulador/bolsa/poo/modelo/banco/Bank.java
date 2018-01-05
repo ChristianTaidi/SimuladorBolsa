@@ -197,4 +197,8 @@ public class Bank implements Imprimible,Serializable {
     public void setGest(Gestor gest) {
         this.gest = gest;
     }
+
+    public AgenteBolsa getAgente() {
+        return this.agente;
+    }
 }

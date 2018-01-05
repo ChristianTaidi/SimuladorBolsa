@@ -65,12 +65,13 @@ public class Simulador {
 
                     load= new ReadFile(FICHERO_BANCO);
                     banco = (Bank) load.read();
-
+                    this.setBroker(banco.getAgente());
                 break;
             case "bolsa":
 
                     load = new ReadFile(FICHERO_BOLSA);
                     bolsa = (BolsaValores) load.read();
+                    this.broker.setBolsa(bolsa);
 
                 break;
             default:
@@ -84,6 +85,10 @@ public class Simulador {
         }finally{
             load.cerrar();
         }
+    }
+
+    private void setBroker(AgenteBolsa agente) {
+        this.broker=agente;
     }
 
     public void backupSave(String codElem) throws InvalidBackupElementException{

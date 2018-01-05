@@ -139,17 +139,23 @@ public class InterfazDeUsuario {
 
                 case 9:
                     try {
-                        System.out.print("Introduzca el numero de empresas desea añadir: ");
-                        int nEmpresas = ent.leerEntero();
-                        while (nEmpresas > 0) {
-                            nEmpresas -= 1;
-                            System.out.print("Introduzca el nombre de la empresa: ");
-                            String nomEmpresa = ent.leerCadena();
-                            System.out.print("Introduzca el precio inicial de las acciones de la empresa: ");
-                            float precio = ent.leerFloat();
-                            sim.addEmpresa(nomEmpresa, precio);
-                            System.out.println();
-                        }
+                        float precio=-1;
+
+                            System.out.print("Introduzca el numero de empresas desea añadir: ");
+                            int nEmpresas = ent.leerEntero();
+                            while (nEmpresas > 0) {
+                                nEmpresas -= 1;
+                                System.out.print("Introduzca el nombre de la empresa: ");
+                                String nomEmpresa = ent.leerCadena();
+                                do {
+                                System.out.print("Introduzca el precio inicial de las acciones de la empresa: ");
+                                precio = ent.leerFloat();
+
+                                System.out.println();
+                                }while (precio<0);
+                                sim.addEmpresa(nomEmpresa, precio);
+                            }
+
                     }catch (IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }catch (InputMismatchException e){
