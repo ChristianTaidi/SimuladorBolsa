@@ -56,6 +56,7 @@ public class InterfazDeUsuario {
                             }
                         }while (saldo <0);
                             sim.addCliente(nombre, dni, saldo);
+                            System.out.println("Cliente añadido con éxito");
                     }catch(NumberFormatException e){
                         System.out.println("Formato de entrada incorrecto");
                     }catch(IllegalArgumentException e){
@@ -72,6 +73,7 @@ public class InterfazDeUsuario {
                         String dni = ent.leerCadena();
 
                             sim.deleteCliente(dni);
+                            System.out.println("Cliente borrado con éxito");
                     }catch(IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }
@@ -82,6 +84,7 @@ public class InterfazDeUsuario {
 
                     try {
                         sim.backupSave("banc");
+                        System.out.println("Copia de seguridad guardada con éxito");
                     }catch (InvalidBackupElementException e){
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -94,6 +97,7 @@ public class InterfazDeUsuario {
 
                     try {
                         sim.backupLoad("banc");
+                        System.out.println("Copia de seguridad cargada con éxito");
                     }catch(InvalidBackupElementException e){
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -108,6 +112,7 @@ public class InterfazDeUsuario {
                         String dni = ent.leerCadena();
 
                             sim.mejorarCliente(dni);
+                            System.out.println("Cliente mejorado con éxito");
                     }catch(IllegalArgumentException e){
                         System.out.println(e.getMessage());
                     }
@@ -122,7 +127,6 @@ public class InterfazDeUsuario {
                         String dni = ent.leerCadena();
                         System.out.println("Introduzca el número de empresas que desea ver: ");
                         int numEmpresas = ent.leerEntero();
-                        System.out.println("Imprimiendo las "+numEmpresas+" mejores empresas...");
                         sim.recomendacion(dni,numEmpresas);
                     }catch(NotPremiumClientException e){
                         System.out.println(e.getMessage());
@@ -154,6 +158,7 @@ public class InterfazDeUsuario {
                                 System.out.println();
                                 }while (precio<0);
                                 sim.addEmpresa(nomEmpresa, precio);
+                                System.out.println("Empresa añadida con éxito");
                             }
 
                     }catch (IllegalArgumentException e){
@@ -170,6 +175,7 @@ public class InterfazDeUsuario {
                     try {
                         String nomEmpresa = ent.leerCadena();
                         sim.deleteEmpresa(nomEmpresa);
+                        System.out.println("Empresa borrada con éxito");
                     }catch(NoSuchEnterpriseException e){
                         System.out.println(e.getMessage());
                     }catch(IllegalArgumentException e){
@@ -187,6 +193,7 @@ public class InterfazDeUsuario {
 
                     try {
                         sim.backupSave("bolsa");
+                        System.out.println("Copia de seguridad guardada con éxito");
                     }catch(InvalidBackupElementException e){
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -198,6 +205,7 @@ public class InterfazDeUsuario {
 
                     try {
                         sim.backupLoad("bolsa");
+                        System.out.println("Copia de seguridad cargada con éxito");
                     }catch(InvalidBackupElementException e){
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -290,6 +298,7 @@ public class InterfazDeUsuario {
                 case 18:
                     System.out.println("Ejecutando solicitudes...");
                     sim.ejecutarOperaciones();
+                    System.out.println("Solicitudes ejecutadas con éxito");
                     break;
 
                 default:
@@ -298,8 +307,7 @@ public class InterfazDeUsuario {
                     }
 
             }
-            }catch(InputMismatchException e){
-                e.printStackTrace();
+            }catch(NumberFormatException e){
                 System.out.println("Formato de opción no válido");
                 option = 404;
             }

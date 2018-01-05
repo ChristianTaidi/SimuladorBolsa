@@ -157,7 +157,7 @@ public class Bank implements Imprimible,Serializable {
                     Cliente clienteActual = this.clientes.get(cliente);
                     if (clienteActual.getSaldo()>precioAcciones*numAcciones) {
                         clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones, empresa, precioAcciones);
-                        clienteActual.actualizarSaldo(saldoRestante);
+                        clienteActual.actualizarSaldo(saldoRestante+clienteActual.getSaldo());
                         agente.actualizarBolsa(numAcciones,empresa);
                     }else{
                         throw new NotEnoughMoneyException("El cliente no tiene dinero para hacer la compra de inversiones de la empresa"+empresa);

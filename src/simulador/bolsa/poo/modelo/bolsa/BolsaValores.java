@@ -10,11 +10,8 @@ import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaCompra;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeRespuestaVenta;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.Iterator;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 public class BolsaValores implements Imprimible,Serializable {
@@ -45,7 +42,6 @@ public class BolsaValores implements Imprimible,Serializable {
                     int numAcciones = (int) (precioAcciones / dInversion);
                     float dRestante = dInversion - (numAcciones * precioAcciones);
                     resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante));
-                    empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() + numAcciones);
                     return resultado;
 
                 } else
@@ -63,7 +59,6 @@ public class BolsaValores implements Imprimible,Serializable {
                     float dineroVenta = (precioAcciones * numAcciones);
 
                     resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta));
-                    empresas.get(nomEmpresa).setNumAcciones(empresas.get(nomEmpresa).getNumAcciones() - numAcciones);
 
                     return resultado;
 
@@ -106,6 +101,15 @@ public class BolsaValores implements Imprimible,Serializable {
 
     }
 
+    public void  añadirEmpresa (String nomEmpresa,int numAcciones ,float precioAcciones)throws IllegalArgumentException{
+
+        Empresa emp = new Empresa(nomEmpresa,numAcciones, precioAcciones);
+        empresas.put(nomEmpresa, emp);
+        System.out.println();
+        emp.imprimir();
+
+    }
+
     public void borrarEmpresa (String nomEmpresa) throws NoSuchEnterpriseException,IllegalArgumentException{
 
             if (empresas.containsKey(nomEmpresa)) {
@@ -128,18 +132,18 @@ public class BolsaValores implements Imprimible,Serializable {
 
 
     public void mejoresEmpresas(int numEmpresas) {
-        TreeSet<Empresa> empresasRentabilidad = new TreeSet<>(new ComparadorEmpresas());
-        Iterator iter = empresasRentabilidad.iterator();
+        ArrayList<Empresa> empresasRentabilidad = new ArrayList<>(this.empresas.values());
+        Collections.sort(empresasRentabilidad,new ComparadorEmpresas());
         if (numEmpresas < this.empresas.size()){
+            System.out.println("Imprimiendo las "+ numEmpresas+" empresas más rentables");
             for(int i=0;i<numEmpresas;i++){
-                Empresa emp = (Empresa)iter.next();
-                emp.imprimir();
+               empresasRentabilidad.get(i).imprimir();
             }
 
         }else{
-            while (iter.hasNext()){
-                Empresa emp=(Empresa) iter.next();
-                emp.imprimir();
+            System.out.println("Solo hay "+ empresasRentabilidad.size()+" empresas en la bolsa");
+            for(int i=0;i<empresasRentabilidad.size();i++){
+                empresasRentabilidad.get(i).imprimir();
             }
             
         }

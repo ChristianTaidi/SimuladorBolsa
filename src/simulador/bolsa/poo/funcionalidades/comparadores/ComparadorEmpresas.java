@@ -11,9 +11,9 @@ public class ComparadorEmpresas implements Comparator {
         Empresa empresa1 = (Empresa)o1;
         Empresa empresa2 = (Empresa)o2;
         if (empresa1.getRentabilidad() <empresa2.getRentabilidad()){
-            return -1;
-        }if(empresa1.getRentabilidad() > empresa2.getRentabilidad()){
             return 1;
+        }if(empresa1.getRentabilidad() > empresa2.getRentabilidad()){
+            return -1;
         }else{
             return 0;
         }

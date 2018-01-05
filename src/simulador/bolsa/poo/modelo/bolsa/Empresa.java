@@ -21,6 +21,17 @@ public class Empresa implements Imprimible,Serializable {
         }
     }
 
+    public Empresa (String nomEmpresa,int numAcciones, float precioAcciones)throws IllegalArgumentException{
+        if (nomEmpresa != null) {
+            this.setNomEmpresa(nomEmpresa);
+            this.setNumAcciones(0);
+            this.setPrecioAcciones(precioAcciones);
+            this.setNumAcciones(numAcciones);
+        }else{
+            throw new IllegalArgumentException("El nombre de la empresa no puede ser nulo");
+        }
+    }
+
     public void setNomEmpresa(String nomEmpresa) {
         this.nomEmpresa = nomEmpresa;
     }
@@ -68,6 +79,7 @@ public class Empresa implements Imprimible,Serializable {
     public void actualizarValor (int numAcc){
        this.setPrecioAntiguoAcc(this.getPrecioAcciones());
        this.setPrecioAcciones((float) ((numAcc*0.1)+this.getPrecioAcciones()));
+       this.setNumAcciones(numAcc);
 
     }
 

@@ -11,22 +11,20 @@ public class EntradaDeDatos {
 
     public EntradaDeDatos(){
         entrada = new Scanner(System.in);
-        entrada.useDelimiter("\\n");
     }
 
 
     public String leerCadena() {
-        entrada.nextLine();
         return entrada.nextLine();
     }
 
 
-    public int leerEntero() throws InputMismatchException{
-        return entrada.nextInt();
+    public int leerEntero() throws NumberFormatException{
+        return Integer.parseInt(entrada.nextLine().trim());
     }
 
-    public float leerFloat()throws InputMismatchException{
-        return entrada.nextFloat();
+    public float leerFloat()throws NumberFormatException{
+        return Float.parseFloat(entrada.nextLine().trim());
     }
 
     public char leerCaracter(){
