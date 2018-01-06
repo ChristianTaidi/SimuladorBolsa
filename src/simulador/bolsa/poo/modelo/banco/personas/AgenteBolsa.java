@@ -39,6 +39,7 @@ public class AgenteBolsa extends Gestor implements Serializable,Imprimible {
             for(Mensaje mensaje:this.getBolsa().recibirSolicitud(msg.codificar()))
             respuestas.add(mensaje.codificar());
         }
+        this.solicitudes.clear();
         return respuestas;
     }
 

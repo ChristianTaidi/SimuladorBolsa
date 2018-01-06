@@ -155,7 +155,7 @@ public class Bank implements Imprimible,Serializable {
                     float precioAcciones= Float.parseFloat(vector[5]);
                     float saldoRestante = Float.parseFloat(vector[6]);
                     Cliente clienteActual = this.clientes.get(cliente);
-                    if (clienteActual.getSaldo()>precioAcciones*numAcciones) {
+                    if (clienteActual.getSaldo()>=precioAcciones*numAcciones) {
                         clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones, empresa, precioAcciones);
                         clienteActual.actualizarSaldo(saldoRestante+clienteActual.getSaldo());
                         agente.actualizarBolsa(numAcciones,empresa);
