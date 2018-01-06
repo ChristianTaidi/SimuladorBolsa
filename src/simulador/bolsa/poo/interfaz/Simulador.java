@@ -8,6 +8,7 @@ import simulador.bolsa.poo.modelo.banco.personas.AgenteBolsa;
 import simulador.bolsa.poo.modelo.banco.personas.Gestor;
 import simulador.bolsa.poo.modelo.bolsa.BolsaValores;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Simulador {
@@ -16,17 +17,21 @@ public class Simulador {
     private BolsaValores bolsa;
     private AgenteBolsa broker;
     private Gestor gest;
-    private static final String FICHERO_BANCO = "banco.dat";
-    private static final String FICHERO_BOLSA = "bolsa.dat";
+    private File ficheroActual= new File(".");
+    private  File ficheroBanco ;
 
-    public Simulador(){
+    private  File ficheroBolsa ;
+
+    public Simulador() throws IOException {
         this.bolsa = new BolsaValores();
         this.broker = new AgenteBolsa("Pedro","76514859G",this.bolsa);
         this.gest = new Gestor("Antonio","12345678A",this.bolsa);
         this.banco = new Bank("Simulador",this.broker,this.gest);
-
-
+        this.ficheroBanco=new File(this.ficheroActual.getCanonicalPath()+"/Ficheros","banco.dat");
+        this.ficheroBolsa = new File(this.ficheroActual.getCanonicalPath()+"/Ficheros","bolsa.dat");
     }
+
+
 
     public void printMenu(){
         System.out.println("***** MENU *****");
@@ -63,13 +68,13 @@ public class Simulador {
         switch (codElem) {
             case "banc":
 
-                    load= new ReadFile(FICHERO_BANCO);
+                    load= new ReadFile(ficheroBanco);
                     banco = (Bank) load.read();
                     this.setBroker(banco.getAgente());
                 break;
             case "bolsa":
 
-                    load = new ReadFile(FICHERO_BOLSA);
+                    load = new ReadFile(ficheroBolsa);
                     bolsa = (BolsaValores) load.read();
                     this.broker.setBolsa(bolsa);
 
@@ -97,7 +102,7 @@ public class Simulador {
             switch (codElem) {
                 case "banc":
 
-                    save = new WriteFile(FICHERO_BANCO);
+                    save = new WriteFile(ficheroBanco);
                     save.write(banco);
 
 
@@ -105,7 +110,7 @@ public class Simulador {
                     break;
                 case "bolsa":
 
-                    save = new WriteFile(FICHERO_BOLSA);;
+                    save = new WriteFile(ficheroBolsa);;
                     save.write(bolsa);
 
 

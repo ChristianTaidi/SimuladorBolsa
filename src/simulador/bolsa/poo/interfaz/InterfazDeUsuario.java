@@ -2,6 +2,7 @@ package simulador.bolsa.poo.interfaz;
 
 import simulador.bolsa.poo.excepciones.*;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 public class InterfazDeUsuario {
@@ -11,7 +12,11 @@ public class InterfazDeUsuario {
     private int option;
 
     public InterfazDeUsuario(){
-        sim = new Simulador();
+        try {
+            sim = new Simulador();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     };
 
 

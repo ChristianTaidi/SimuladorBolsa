@@ -1,5 +1,6 @@
 package simulador.bolsa.poo.funcionalidades.io;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -9,7 +10,7 @@ public class WriteFile<T> implements IOStream {
     ObjectOutputStream objectOut;
 
 
-    public WriteFile(String fich) throws IOException{
+    public WriteFile(File fich) throws IOException{
         stream=new FileOutputStream(fich);
         objectOut = new ObjectOutputStream(stream);
 

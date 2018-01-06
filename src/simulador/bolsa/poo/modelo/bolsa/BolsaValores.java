@@ -40,7 +40,7 @@ public class BolsaValores implements Imprimible,Serializable {
                     float precioAcciones = (empresas.get(nomEmpresa).getPrecioAcciones());
                     boolean acceso = (dInversion > precioAcciones);
                     int numAcciones = (int) (precioAcciones / dInversion);
-                    float dRestante = dInversion - (numAcciones * precioAcciones);
+                    float dRestante = -(numAcciones * precioAcciones);
                     resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante));
                     return resultado;
 
