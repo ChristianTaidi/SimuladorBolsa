@@ -12,10 +12,6 @@ public class AgenteBolsa extends Gestor implements Serializable,Imprimible {
 
     private ArrayList<Mensaje> solicitudes;
 
-
-
-
-
     public AgenteBolsa(String nombre, String dni, BolsaValores bols) {
         super(nombre,dni,bols);
         this.solicitudes=new ArrayList();
@@ -29,7 +25,7 @@ public class AgenteBolsa extends Gestor implements Serializable,Imprimible {
 
     public void imprimir(){
         for(Mensaje msg: solicitudes){
-            System.out.println(msg.codificar());
+            msg.imprimir();
         }
     }
 

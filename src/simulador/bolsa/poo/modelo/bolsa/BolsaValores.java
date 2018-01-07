@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class BolsaValores implements Imprimible,Serializable {
+
     private TreeMap <String, Empresa> empresas;
     private static final int MODULO=3;
 
@@ -31,7 +32,6 @@ public class BolsaValores implements Imprimible,Serializable {
         decod.setCadena(mensaje);
         if (empresas.containsKey(decod.getEmpresa())) {
             if ((decod.getCodigoId() % MODULO) == 0) {
-
                 float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
                 boolean acceso = (decod.getDineroInversion() >= precioAcciones);
                 int numAcciones = (int) (decod.getDineroInversion() / precioAcciones);
@@ -39,7 +39,6 @@ public class BolsaValores implements Imprimible,Serializable {
                 resultado.add(new MensajeRespuestaCompra(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), acceso, numAcciones, precioAcciones, dRestante));
 
                 return resultado;
-
 
         } else if ((decod.getCodigoId() % MODULO) == 1) {
 

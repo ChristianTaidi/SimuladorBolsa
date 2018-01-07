@@ -1,9 +1,11 @@
 package simulador.bolsa.poo.modelo.solicitudes;
 
 
+import simulador.bolsa.poo.interfaces.Imprimible;
+
 import java.io.Serializable;
 
-public class MensajeCompra extends CompraVenta implements Serializable{
+public class MensajeCompra extends CompraVenta implements Serializable,Imprimible{
 
     private float dInversion;
 
@@ -26,6 +28,11 @@ public class MensajeCompra extends CompraVenta implements Serializable{
         return getCodigoId() + "|" + getCliente() + "|" + getdInversion() + "|" + getnomEmpresa();
     }
 
+    @Override
+    public void imprimir() {
+        System.out.println("Mensaje de Compra con código: "+this.getCodigoId());
+        System.out.println("Solicitado por el cliente: "+this.getCliente()+" , que invierte "+this.getdInversion()+" euros en la empresa "+this.getnomEmpresa());
+    }
 
 
 }

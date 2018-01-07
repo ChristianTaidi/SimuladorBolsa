@@ -10,7 +10,10 @@ import simulador.bolsa.poo.modelo.solicitudes.MensajeCompra;
 import simulador.bolsa.poo.modelo.solicitudes.MensajeVenta;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -120,7 +123,8 @@ public class Bank implements Imprimible,Serializable {
                          }
                         break;
                     case 2:
-                            agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * MODULO) + cod));
+
+                            agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * MODULO) + cod,new Date()));
                             this.incrementarContadorSolicitudes();
                         break;
 
