@@ -31,7 +31,7 @@ public class MensajeRespuestaActualizacion extends MensajeActualizacion implemen
 
     public String codificar(){
 
-        return (this.getCodigoId()+"|"+this.getEnterpriseName()+"|"+String.valueOf(this.getStockPrice()));
+        return (this.getCodigoId()+"|"+" "+"|"+"True"+"|"+this.getEnterpriseName()+"|"+String.valueOf(this.getStockPrice()));
     }
 
 }

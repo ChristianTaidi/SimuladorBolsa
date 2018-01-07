@@ -17,7 +17,7 @@ public abstract class RespuestaCompraVenta extends CompraVenta implements Serial
     }
 
     public String codificar (){
-        return this.getCodigoId() + "|" + this.getCliente() + "|" +this.getnomEmpresa()+ "|" + this.getAcceso() + "|" + getNumAcciones() + "|" + getPrecioAcciones() + "|" + getdRestante();
+        return this.getCodigoId() + "|" + this.getCliente() + "|"+this.getAcceso()+ "|" +  this.getnomEmpresa() + "|" + getPrecioAcciones() + "|" +this.getNumAcciones()+ "|" + getdRestante();
     }
 
     public void setAcceso(boolean acceso) {

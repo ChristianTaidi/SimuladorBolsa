@@ -1,6 +1,7 @@
 package simulador.bolsa.poo.modelo.banco;
 
 import simulador.bolsa.poo.excepciones.*;
+import simulador.bolsa.poo.funcionalidades.Decodificador;
 import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.banco.personas.*;
 import simulador.bolsa.poo.modelo.banco.personas.clientes.*;
@@ -20,6 +21,8 @@ public class Bank implements Imprimible,Serializable {
     private AgenteBolsa agente;
     private  Gestor gest;
     private int contadorSolicitudes;
+    private static final int MODULO=3;
+
 
     public Bank(String name, AgenteBolsa agente,Gestor gest){
         this.setAgenteBolsa(agente);
@@ -101,7 +104,7 @@ public class Bank implements Imprimible,Serializable {
                 switch (cod) {
                     case 0:
                         if (clientes.containsKey(dni)) {
-                                agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getDni(), dinero, empresa));
+                                agente.addSolicitud(new MensajeCompra((this.getContadorSolicitudes() * MODULO) + cod, clientes.get(dni).getDni(), dinero, empresa));
                                 this.incrementarContadorSolicitudes();
                         } else {
                             throw new InexistentClientException("El Cliente no existe");
@@ -110,14 +113,14 @@ public class Bank implements Imprimible,Serializable {
                     case 1:
                         if (clientes.containsKey(dni)) {
 
-                                agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * 3) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
+                                agente.addSolicitud(new MensajeVenta((this.getContadorSolicitudes() * MODULO) + cod, clientes.get(dni).getNombre(), nAcc, empresa));
                                 this.incrementarContadorSolicitudes();
                         }else{
                             throw new InexistentClientException("El Cliente no existe");
                          }
                         break;
                     case 2:
-                            agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * 3) + cod));
+                            agente.addSolicitud(new MensajeActualizacion((this.getContadorSolicitudes() * MODULO) + cod));
                             this.incrementarContadorSolicitudes();
                         break;
 
@@ -140,52 +143,47 @@ public class Bank implements Imprimible,Serializable {
         this.contadorSolicitudes=0;
     }
 
-    public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException, NotEnoughMoneyException, NotEnoughActionsException {
+    public void ejecutarSolicitudes () throws InvalidCodeException, NoSuchEnterpriseException, NotEnoughMoneyException, NotEnoughActionsException, InexistentClientException {
         this.resetContadorSolicitudes();
         ArrayList<String> mensajes = agente.ejecutarSolicitudes();
+        Decodificador decod = new Decodificador("|");
         for (String mensaje : mensajes) {
             try {
-                String[] vector = mensaje.split(Pattern.quote("|"));
-                int codigo = Integer.parseInt(vector[0]);
-                if (codigo % 3 == 0) {
-                    String cliente = vector[1];
-                    String empresa = vector[2];
-                    boolean acceso = Boolean.parseBoolean(vector[3]);
-                    int numAcciones = Integer.parseInt(vector[4]);
-                    float precioAcciones= Float.parseFloat(vector[5]);
-                    float saldoRestante = Float.parseFloat(vector[6]);
-                    Cliente clienteActual = this.clientes.get(cliente);
-                    if (clienteActual.getSaldo()>=precioAcciones*numAcciones) {
-                        clienteActual.addStockPackage(clientes.get(cliente).tieneAcciones(empresa) + numAcciones, empresa, precioAcciones);
-                        clienteActual.actualizarSaldo(saldoRestante+clienteActual.getSaldo());
-                        agente.actualizarBolsa(numAcciones,empresa);
-                    }else{
-                        throw new NotEnoughMoneyException("El cliente no tiene dinero para hacer la compra de inversiones de la empresa"+empresa);
-                    }
-                } else if (codigo % 3 == 1) {
-                    String cliente = vector[1];
-                    String empresa = vector[2];
-                    boolean acceso = Boolean.parseBoolean(vector[3]);
-                    int numAcciones = Integer.parseInt(vector[4]);
-                    float precioAcciones = Float.parseFloat(vector[5]);
-                    float dineroRestante = Float.parseFloat(vector[6]);
-                    Cliente clienteActual = this.clientes.get(cliente);
-                    if(clienteActual.tieneAcciones(empresa)>= numAcciones) {
-                        clienteActual.addStockPackage(clienteActual.tieneAcciones(empresa) - numAcciones, empresa, precioAcciones);
-                        clienteActual.actualizarSaldo(dineroRestante + clienteActual.getSaldo());
-                        agente.actualizarBolsa(-numAcciones,empresa);
-                    }else{
-                        throw new NotEnoughActionsException("El cliente no tiene acciones suficientes de la empresa: "+empresa+", tiene: "+clienteActual.tieneAcciones(empresa)+" acciones");
-                    }
-                } else if (codigo % 3 == 2) {
-                    String nombEmpresa = vector[1];
-                    float precioAcciones = Float.parseFloat(vector[2]);//preguntar como recorrer esto//
+                decod.asignarCadena(mensaje);
+                if (decod.getAcceso()) {
+                    if (decod.getCodigoId() % MODULO == 0) {
+                        if (clientes.containsKey(decod.getCliente())) {
+                            Cliente clienteActual = this.clientes.get(decod.getCliente());
+                            if (clienteActual.getSaldo() >= decod.getPrecioAcciones() * decod.getNumAcciones()) {
+                                clienteActual.addStockPackage(clientes.get(decod.getCliente()).tieneAcciones(decod.getEmpresa()) + decod.getNumAcciones(), decod.getEmpresa(), decod.getPrecioAcciones());
+                                clienteActual.actualizarSaldo(decod.getDineroRestante() + clienteActual.getSaldo());
+                                agente.actualizarBolsa(decod.getNumAcciones(), decod.getEmpresa());
+                            } else {
+                                throw new NotEnoughMoneyException("El cliente no tiene dinero para hacer la compra de inversiones de la empresa" + decod.getEmpresa());
+                            }
+                        } else {
+                            throw new InexistentClientException("El cliente con DNI: " + decod.getCliente() + "ya no existe");
+                        }
+                    } else if (decod.getCodigoId() % MODULO == 1) {
 
-                    for (Cliente c : clientes.values()) {
-                        if (c.estaEmpresa(nombEmpresa)) {
-                            c.updateStockPackage(nombEmpresa, precioAcciones);
+                        Cliente clienteActual = this.clientes.get(decod.getCliente());
+                        if (clienteActual.tieneAcciones(decod.getEmpresa()) >= decod.getNumAcciones()) {
+                            clienteActual.addStockPackage(clienteActual.tieneAcciones(decod.getEmpresa()) - decod.getNumAcciones(), decod.getEmpresa(), decod.getPrecioAcciones());
+                            clienteActual.actualizarSaldo(decod.getDineroRestante() + clienteActual.getSaldo());
+                            agente.actualizarBolsa(-decod.getNumAcciones(), decod.getEmpresa());
+                        } else {
+                            throw new NotEnoughActionsException("El cliente no tiene acciones suficientes de la empresa: " + decod.getEmpresa() + ", tiene: " + clienteActual.tieneAcciones(decod.getEmpresa()) + " acciones");
+                        }
+                    } else if (decod.getCodigoId() % MODULO == 2) {
+
+                        for (Cliente c : clientes.values()) {
+                            if (c.estaEmpresa(decod.getEmpresa())) {
+                                c.updateStockPackage(decod.getEmpresa(), decod.getPrecioAcciones());
+                            }
                         }
                     }
+                }else{
+                    System.out.println("No se ha podido realizar la operación por saldo o numero de acciones insuficientes");
                 }
 
             } catch (NumberFormatException e) {

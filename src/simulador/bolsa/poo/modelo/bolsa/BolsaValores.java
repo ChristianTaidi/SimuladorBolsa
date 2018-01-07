@@ -2,6 +2,7 @@ package simulador.bolsa.poo.modelo.bolsa;
 
 import simulador.bolsa.poo.excepciones.InvalidCodeException;
 import simulador.bolsa.poo.excepciones.NoSuchEnterpriseException;
+import simulador.bolsa.poo.funcionalidades.Decodificador;
 import simulador.bolsa.poo.funcionalidades.comparadores.ComparadorEmpresas;
 import simulador.bolsa.poo.interfaces.Imprimible;
 import simulador.bolsa.poo.modelo.solicitudes.Mensaje;
@@ -16,6 +17,7 @@ import java.util.regex.Pattern;
 
 public class BolsaValores implements Imprimible,Serializable {
     private TreeMap <String, Empresa> empresas;
+    private static final int MODULO=3;
 
     public BolsaValores(){
         this.empresas= new TreeMap();
@@ -24,59 +26,46 @@ public class BolsaValores implements Imprimible,Serializable {
     public ArrayList<Mensaje> recibirSolicitud(String mensaje)throws InvalidCodeException,NoSuchEnterpriseException {
 
 
-            ArrayList<Mensaje> resultado = new ArrayList();
-            String[] partes = mensaje.split(Pattern.quote("|"));
-            int codigoId = Integer.parseInt(partes[0]);
+        ArrayList<Mensaje> resultado = new ArrayList();
+        Decodificador decod = new Decodificador("|");
+        decod.setCadena(mensaje);
+        if (empresas.containsKey(decod.getEmpresa())) {
+            if ((decod.getCodigoId() % MODULO) == 0) {
 
-            if ((codigoId % 3) == 0) {
-                String cliente = (partes[1]);
-                float dInversion = Float.parseFloat(partes[2]);
-                String nomEmpresa = (partes[3]);
+                float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
+                boolean acceso = (decod.getDineroInversion() >= precioAcciones);
+                int numAcciones = (int) (decod.getDineroInversion() / precioAcciones);
+                float dRestante = -(numAcciones * precioAcciones);
+                resultado.add(new MensajeRespuestaCompra(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), acceso, numAcciones, precioAcciones, dRestante));
 
-
-
-                if (empresas.containsKey(nomEmpresa)) {
-
-                    float precioAcciones = (empresas.get(nomEmpresa).getPrecioAcciones());
-                    boolean acceso = (dInversion > precioAcciones);
-                    int numAcciones = (int) (dInversion / precioAcciones);
-                    float dRestante = -(numAcciones * precioAcciones);
-                    resultado.add(new MensajeRespuestaCompra(codigoId, cliente,nomEmpresa, acceso, numAcciones, precioAcciones, dRestante));
-                    return resultado;
-
-                } else
-
-                    throw new NoSuchEnterpriseException("La empresa no existe");
-
-            } else if ((codigoId % 3) == 1) {
-
-                String cliente = (partes[1]);
-                int numAcciones = Integer.parseInt(partes[2]);
-                String nomEmpresa = (partes[3]);
-                float precioAcciones = (empresas.get(nomEmpresa).getPrecioAcciones());
-                if (empresas.containsKey(nomEmpresa)) {
-
-                    float dineroVenta = (precioAcciones * numAcciones);
-
-                    resultado.add(new MensajeRespuestaVenta(codigoId, cliente, nomEmpresa,true, numAcciones, precioAcciones, dineroVenta));
-
-                    return resultado;
-
-                } else
-                    throw new NoSuchEnterpriseException("La empresa no existe");
-            } else if ((codigoId % 3) == 2) {
-                int code = 0;
-                for (Empresa emp : empresas.values()) {
-
-                    resultado.add(new MensajeRespuestaActualizacion((code*3)+2, emp.getNomEmpresa(), emp.getPrecioAcciones()));
-                    code+=1;
-                }
                 return resultado;
-            } else {
-                throw new InvalidCodeException("Error interno, intentalo de nuevo");
+
+
+        } else if ((decod.getCodigoId() % MODULO) == 1) {
+
+
+                float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
+                float dineroVenta = (precioAcciones * decod.getNumAcciones());
+                resultado.add(new MensajeRespuestaVenta(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), true, decod.getNumAcciones(), precioAcciones, dineroVenta));
+
+                return resultado;
+
+        } else if ((decod.getCodigoId() % MODULO) == 2) {
+            int code = 0;
+
+            for (Empresa emp : empresas.values()) {
+                resultado.add(new MensajeRespuestaActualizacion((code * MODULO) + 2, emp.getNomEmpresa(), emp.getPrecioAcciones()));
+                code ++;
             }
 
+            return resultado;
+        } else {
+            throw new InvalidCodeException("Error interno, intentalo de nuevo");
+        }
+    } else {
+            throw new NoSuchEnterpriseException("La empresa no existe");
 
+        }
 
 
     }

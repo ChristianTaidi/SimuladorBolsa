@@ -71,12 +71,15 @@ public class Simulador {
                     load= new ReadFile(ficheroBanco);
                     banco = (Bank) load.read();
                     this.setBroker(banco.getAgente());
+                    this.gest.setBolsa(bolsa);
+                    this.broker.setBolsa(bolsa);
                 break;
             case "bolsa":
 
                     load = new ReadFile(ficheroBolsa);
                     bolsa = (BolsaValores) load.read();
                     this.broker.setBolsa(bolsa);
+                    this.gest.setBolsa(bolsa);
 
                 break;
             default:
@@ -112,7 +115,6 @@ public class Simulador {
 
                     save = new WriteFile(ficheroBolsa);;
                     save.write(bolsa);
-
 
                     break;
                 default:
@@ -221,6 +223,8 @@ public class Simulador {
         } catch (NotEnoughMoneyException e) {
             System.out.println(e.getMessage());
         } catch (NotEnoughActionsException e) {
+            System.out.println(e.getMessage());
+        } catch (InexistentClientException e) {
             System.out.println(e.getMessage());
         }
     }

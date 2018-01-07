@@ -70,7 +70,7 @@ public class Empresa implements Imprimible,Serializable {
 
     public float getIncrementoPorcentaje() {
         if(this.getPrecioAntiguoAcc()>0) {
-            return ((this.getPrecioAcciones() / this.getPrecioAntiguoAcc()) * 100);
+            return ((this.getIncrementoNum()/ this.getPrecioAntiguoAcc()) * 100);
         }else{
             return 0;
         }
