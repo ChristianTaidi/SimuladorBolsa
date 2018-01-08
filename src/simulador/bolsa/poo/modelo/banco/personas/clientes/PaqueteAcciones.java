@@ -1,7 +1,9 @@
 package simulador.bolsa.poo.modelo.banco.personas.clientes;
 import simulador.bolsa.poo.interfaces.Imprimible;
 
-public class PaqueteAcciones implements Imprimible{
+import java.io.Serializable;
+
+public class PaqueteAcciones implements Serializable,Imprimible{
     private int nAcciones;
     private String nombEmpresa;
     private float valorTitulo;
@@ -45,6 +47,6 @@ public PaqueteAcciones(int nAcc, String nEmp, float valor){
     }
 
     public void imprimir(){
-        System.out.println(this.getnAcciones()+" Acciones de la empresa: "+this.getNombEmpresa()+ " por valor de "+this.getValorTitulo()+"€ cada una.");
+        System.out.println(this.getnAcciones()+" Acciones de la empresa: "+this.getNombEmpresa()+ " por valor de "+this.getValorTitulo()+" euros cada una.");
     }
 }

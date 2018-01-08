@@ -30,44 +30,46 @@ public class BolsaValores implements Imprimible,Serializable {
         ArrayList<Mensaje> resultado = new ArrayList();
         Decodificador decod = new Decodificador("|");
         decod.setCadena(mensaje);
-        if (empresas.containsKey(decod.getEmpresa())) {
+
             if ((decod.getCodigoId() % MODULO) == 0) {
-                float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
-                boolean acceso = (decod.getDineroInversion() >= precioAcciones);
-                int numAcciones = (int) (decod.getDineroInversion() / precioAcciones);
-                float dRestante = -(numAcciones * precioAcciones);
-                resultado.add(new MensajeRespuestaCompra(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), acceso, numAcciones, precioAcciones, dRestante));
+                if (empresas.containsKey(decod.getEmpresa())) {
+                    float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
+                    boolean acceso = (decod.getDineroInversion() >= precioAcciones);
+                    int numAcciones = (int) (decod.getDineroInversion() / precioAcciones);
+                    float dRestante = -(numAcciones * precioAcciones);
+                    resultado.add(new MensajeRespuestaCompra(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), acceso, numAcciones, precioAcciones, dRestante));
+
+                    return resultado;
+                }else {
+                    throw new NoSuchEnterpriseException("La empresa no existe");
+
+                }
+            } else if ((decod.getCodigoId() % MODULO) == 1) {
+                if (empresas.containsKey(decod.getEmpresa())) {
+
+                    float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
+                    float dineroVenta = (precioAcciones * decod.getNumAcciones());
+                    resultado.add(new MensajeRespuestaVenta(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), true, decod.getNumAcciones(), precioAcciones, dineroVenta));
+
+                    return resultado;
+                }else {
+                    throw new NoSuchEnterpriseException("La empresa no existe");
+
+                }
+            } else if ((decod.getCodigoId() % MODULO) == 2) {
+                int code = 0;
+
+                for (Empresa emp : empresas.values()) {
+                    resultado.add(new MensajeRespuestaActualizacion((code * MODULO) + 2, emp.getNomEmpresa(), emp.getPrecioAcciones()));
+                    code ++;
+                }
 
                 return resultado;
-
-        } else if ((decod.getCodigoId() % MODULO) == 1) {
-
-
-                float precioAcciones = (empresas.get(decod.getEmpresa()).getPrecioAcciones());
-                float dineroVenta = (precioAcciones * decod.getNumAcciones());
-                resultado.add(new MensajeRespuestaVenta(decod.getCodigoId(), decod.getCliente(), decod.getEmpresa(), true, decod.getNumAcciones(), precioAcciones, dineroVenta));
-
-                return resultado;
-
-        } else if ((decod.getCodigoId() % MODULO) == 2) {
-            int code = 0;
-
-            for (Empresa emp : empresas.values()) {
-                resultado.add(new MensajeRespuestaActualizacion((code * MODULO) + 2, emp.getNomEmpresa(), emp.getPrecioAcciones()));
-                code ++;
-            }
-
-            return resultado;
-        } else {
-            throw new InvalidCodeException("Error interno, intentalo de nuevo");
+            } else {
+                throw new InvalidCodeException("Error interno, intentalo de nuevo");
         }
-    } else {
-            throw new NoSuchEnterpriseException("La empresa no existe");
-
-        }
-
-
     }
+
 
 
     public void imprimir() {
